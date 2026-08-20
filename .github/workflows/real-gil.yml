@@ -1,0 +1,41 @@
+name: real-gil-experiment
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'experiments/real_gil/**'
+      - 'src/resilience_poc/runtime_checks.py'
+      - '.github/workflows/real-gil.yml'
+
+jobs:
+  phase-a:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.13t', '3.14t']
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Verify free-threaded runtime
+        run: |
+          python -VV
+          python -c 'import sys,sysconfig; assert sys.implementation.name == "cpython"; assert sysconfig.get_config_var("Py_GIL_DISABLED") == 1; assert sys._is_gil_enabled() is False'
+      - name: Build extension fixtures
+        run: |
+          python -m pip install --upgrade pip setuptools
+          python experiments/real_gil/compatible_ext/setup.py build_ext --inplace
+          python experiments/real_gil/incompatible_ext/setup.py build_ext --inplace
+      - name: Control — compatible extension
+        run: |
+          PYTHONPATH=experiments/real_gil/compatible_ext python experiments/real_gil/run_real_gil_experiment.py compatible_ext
+      - name: Treatment — incompatible extension
+        run: |
+          PYTHONPATH=experiments/real_gil/incompatible_ext python experiments/real_gil/run_real_gil_experiment.py incompatible_ext --expect-reactivation
+      - name: Upload raw evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: real-gil-${{ matrix.python }}
+          path: artifacts/real-gil/*.json

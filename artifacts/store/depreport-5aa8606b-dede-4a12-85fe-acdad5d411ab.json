@@ -1,0 +1,17 @@
+{
+  "declared_lockfile_ref": "link://locks/fixture-lock",
+  "declared_materials": [],
+  "dependency_drift": {
+    "count": 0,
+    "mismatches": []
+  },
+  "evidence_manifest_ref": "evmanifest-52939df1-e4b0-4c09-81ca-b8167f2b32b8",
+  "id": "depreport-5aa8606b-dede-4a12-85fe-acdad5d411ab",
+  "integrity_signature": "fixture",
+  "runtime_imports": [],
+  "sbom_ref": "fixture",
+  "supply_chain_checks": {
+    "cve_policy_pass": true,
+    "signatures_valid": true
+  }
+}

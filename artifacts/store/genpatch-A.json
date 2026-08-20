@@ -1,0 +1,28 @@
+{
+  "agent_metadata": {
+    "confidence_score": 0.5,
+    "generation_policy_id": "policy://fixture/v1",
+    "model_version": "fixture-v1"
+  },
+  "expected_outcome": "AUTO_MERGE",
+  "files_changed": [
+    "app.py"
+  ],
+  "fixture_reproducibility": {
+    "artifact_identity": "sha256:fixture-same",
+    "comparison": {
+      "independent_rebuilds": false,
+      "same_artifact_identity": true,
+      "same_declared_inputs": true
+    },
+    "level": "REPRODUCIBLE"
+  },
+  "id": "genpatch-A",
+  "integrity_signature": "ed25519:ghFR9mF6bQjAwEANkAx62jIuSNA+jhphi4vjUeRXfuiE17aoCdXOO+grTSGrbvXx5a2oCZ8Il4ZX8Fmlmy7DBw==",
+  "notes": "PoC fixture",
+  "patch_diff": "diff --git a/app.py b/app.py\n+print(\"fixture\")",
+  "producer_agent": "agent://fixture-coder-v1",
+  "prompt_snapshot": "fixture prompt",
+  "target_repository": "git+https://example/repo@sha:abc123",
+  "timestamp": "2026-08-20T20:00:00Z"
+}
