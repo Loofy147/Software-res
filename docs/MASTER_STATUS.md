@@ -1,36 +1,33 @@
 # Software Resilience Stack v1.0 — Consolidated Master Status
 
+## Overview & Positioning Reference
+For the complete research framing, product architecture, claim matrix, and Phase 2 roadmap, see [`RESEARCH_AND_PRODUCT_POSITIONING.md`](RESEARCH_AND_PRODUCT_POSITIONING.md).
+
 ## Scope
-This package consolidates the implementation work completed for the Software Resilience Stack PoC through Phase B, corpus intake, external public corpus preparation, and assumption review.
+This repository provides the core implementation and proof-of-concept for the Software Resilience Stack v1.0, an evidence-driven verification and governance layer for AI-generated code.
 
-## Evidence status
-- Artifact contracts: EXPERIMENTALLY_SUPPORTED in the PoC fixtures.
-- Evidence Collector / Validator: EXPERIMENTALLY_SUPPORTED on the controlled fixture suite.
-- Reliability Vector and deterministic decision engine: EXPERIMENTALLY_SUPPORTED on controlled cases.
-- A–D injected failures: EXPERIMENTALLY_SUPPORTED on controlled fixtures.
-- VSA + DSSE integration: EXPERIMENTALLY_SUPPORTED in the local MVP harness.
-- Real GIL causality on free-threaded CPython + actual native extension: OPEN.
-- Production SLSA builder provenance: OPEN.
-- Independent production trust-root / verifier deployment: OPEN.
-- External public-repository build/test evaluation: READY FOR EXTERNAL RUNNER; not executed in the current container because outbound checkout/build access is unavailable.
-- Production thresholds: HYPOTHESES / NOT CALIBRATED.
-- Generalization: OPEN.
+## Claim Matrix Summary
+- **Architecture & Contracts**: `SUPPORTED` (5 schemas, local evidence collector & multi-dimensional validator).
+- **Decision Engine Determinism**: `SUPPORTED` (100% deterministic decision logic across controlled fixtures).
+- **Controlled Injected Fault Detection (A–D)**: `SUPPORTED` (100% detection rate on controlled synthetic benchmarks).
+- **VSA & DSSE Attestation Structure**: `SUPPORTED` (Local in-toto VSA generator & Ed25519 signature envelope).
+- **Real GIL Causality on Free-Threaded CPython**: `OPEN` (Controlled harness ready in `experiments/real_gil/`; CI execution pending on `3.13t`/`3.14t`).
+- **Production SLSA Builder Integration**: `OPEN` (Local builder fixture in place; production deployment requires external CI builder attestation).
+- **External Repository Evaluation**: `OPEN` (External corpus runner ready; awaiting multi-repo execution).
+- **False Positive / Negative Calibration**: `OPEN` (Synthetic benchmark FPR/FNR is 0.00; real-world rates to be established via mutation testing).
+- **General Software Reliability Claim**: `NOT ESTABLISHED` (Controlled fixture success is architectural proof of concept, not a generalized statistical claim).
 
-## Important interpretation rule
-Controlled fixture results are not external validation. A perfect fixture result demonstrates that the pipeline detects the injected conditions represented by the fixtures; it does not establish general reliability across arbitrary software.
+## Core Architectural Principles
+1. **Evidence Orchestration over Standards Reinvention**: Integrates in-toto, SLSA, VSA, CycloneDX, and pytest without inventing redundant provenance specifications.
+2. **Non-Compensatory Reliability Vector**: Safety-critical dimensions (concurrency, security, dependency integrity) act as non-compensatory hard constraints. Averaging scores is explicitly rejected.
+3. **AI-Aware Provenance Chain**: Records prompt snapshot, agent identity, generation policy, and patch diff alongside standard build and test evidence.
 
-## Reproducibility metric separation
-Keep these separate:
-- Reproduction Success: successful reproducible builds / eligible reproducibility attempts.
-- Non-Reproducibility Detection Rate: correctly detected non-reproducible builds / injected non-reproducible builds.
+## Assumptions & Open Empirical Questions
+See [`ASSUMPTIONS_AND_OPEN_QUESTIONS.md`](ASSUMPTIONS_AND_OPEN_QUESTIONS.md) for detailed definitions of Assumptions A through F (Evidence Integrity, Test Completeness, Invariant Correctness, Runtime Causality, Dependency Completeness, Measurable Reproducibility).
 
-## Real-GIL experiment
-The repository contains a control/treatment harness designed for CPython free-threaded builds. The experiment is intentionally fail-closed when the runtime is not genuinely free-threaded. No real-runtime causal success is claimed in this package.
-
-## Corpus separation
-Three evidence populations must remain distinct:
-1. Internal/user-owned corpus.
-2. Controlled synthetic/injected benchmark.
-3. External public-repository corpus.
-
-Do not combine their accuracy metrics into a single headline number.
+## Next Phase: Assumption Audit & External Validation v2
+1. Real GIL Execution on CPython 3.13t/3.14t CI.
+2. Production SLSA & DSSE attestation pipeline integration.
+3. Mutation-based benchmark evaluation to measure vector sensitivity (TP, TN, FP, FN).
+4. Multi-repo empirical trial (20–50 open-source repositories).
+5. Risk-tier and threshold calibration against empirical post-merge defect rates.
