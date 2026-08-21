@@ -1,0 +1,24 @@
+{
+  "evidence_manifest_ref": "evmanifest-b6c1f456-7e4b-4a3b-9ffb-89f58531568d",
+  "fuzzing": {
+    "executed": false
+  },
+  "id": "testev-c04f170c-e933-45d2-ace2-91fccfac63d3",
+  "integrity_signature": "fixture",
+  "property_tests": {
+    "cases_run": 1,
+    "executed": true,
+    "framework": "fixture",
+    "violations": 0
+  },
+  "test_environment": {
+    "container_image": "fixture"
+  },
+  "unit_tests": {
+    "count": 1,
+    "coverage_percent": 100.0,
+    "executed": true,
+    "failed": 0,
+    "passed": 1
+  }
+}

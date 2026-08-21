@@ -1,0 +1,38 @@
+{
+  "declared_lockfile_ref": "link://lock",
+  "declared_materials": [
+    {
+      "digest": "sha256:x",
+      "uri": "pkg:pypi/requests@2.31.0"
+    }
+  ],
+  "dependency_drift": {
+    "count": 1,
+    "mismatches": [
+      {
+        "module": "missing_pkg",
+        "type": "undeclared_runtime_import"
+      }
+    ]
+  },
+  "evidence_manifest_ref": "pending",
+  "id": "dep-B",
+  "integrity_signature": "fixture",
+  "runtime_imports": [
+    {
+      "module": "requests",
+      "source": "site-packages/requests",
+      "version": "2.31.0"
+    },
+    {
+      "module": "missing_pkg",
+      "source": "site-packages/missing_pkg",
+      "version": "0.0.1"
+    }
+  ],
+  "sbom_ref": "link://sbom",
+  "supply_chain_checks": {
+    "cve_policy_pass": true,
+    "signatures_valid": true
+  }
+}

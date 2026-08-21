@@ -1,0 +1,77 @@
+{
+  "by_failure_code": {
+    "DEP_DRIFT": {
+      "decision_determinism_rate": 1.0,
+      "detection_rate": 1.0,
+      "evidence_completeness_rate": 1.0,
+      "false_positive_rate": null,
+      "records": 1
+    },
+    "NOT_REPRODUCIBLE": {
+      "decision_determinism_rate": 1.0,
+      "detection_rate": 1.0,
+      "evidence_completeness_rate": 1.0,
+      "false_positive_rate": null,
+      "records": 1
+    },
+    "SEM_INV_VIOLATION": {
+      "decision_determinism_rate": 1.0,
+      "detection_rate": 1.0,
+      "evidence_completeness_rate": 1.0,
+      "false_positive_rate": null,
+      "records": 1
+    },
+    "UNEXPECTED_GIL_REACTIVATION": {
+      "decision_determinism_rate": 1.0,
+      "detection_rate": 1.0,
+      "evidence_completeness_rate": 1.0,
+      "false_positive_rate": null,
+      "records": 1
+    }
+  },
+  "by_source_kind": {
+    "fixture": {
+      "decision_determinism_rate": 1.0,
+      "detection_rate": 1.0,
+      "evidence_completeness_rate": 1.0,
+      "false_positive_rate": 0.0,
+      "records": 6
+    }
+  },
+  "coverage": {
+    "failure_codes": [
+      "DEP_DRIFT",
+      "NOT_REPRODUCIBLE",
+      "SEM_INV_VIOLATION",
+      "UNEXPECTED_GIL_REACTIVATION"
+    ],
+    "source_kinds": [
+      "fixture"
+    ]
+  },
+  "dataset": {
+    "patches": 6,
+    "projects": 1,
+    "records": 6,
+    "source_kind_counts": {
+      "fixture": 6
+    }
+  },
+  "failure_detection": {
+    "clean_runs": 2,
+    "detection_rate": 1.0,
+    "false_negative_rate": 0.0,
+    "false_positive_rate": 0.0,
+    "injected_failures": 4
+  },
+  "quality": {
+    "decision_accuracy_against_expected": 1.0,
+    "decision_determinism_rate": 1.0,
+    "evidence_completeness_rate": 1.0
+  },
+  "reproducibility": {
+    "eligible_runs": 6,
+    "non_reproducibility_detection_rate": 1.0,
+    "reproduction_success": 0.833333
+  }
+}

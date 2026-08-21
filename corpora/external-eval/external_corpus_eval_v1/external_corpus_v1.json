@@ -1,0 +1,18 @@
+{
+  "corpus_id": "external_public_v1",
+  "status": "INTAKE_COMPLETE_EXECUTION_PENDING",
+  "repositories": [
+    {"repository":"pytest-dev/pytest","language":"python","default_branch":"main","visibility":"public","evaluation_status":"ready_for_checkout"},
+    {"repository":"pallets/flask","language":"python","default_branch":"main","visibility":"public","evaluation_status":"ready_for_checkout"},
+    {"repository":"psf/requests","language":"python","default_branch":"main","visibility":"public","evaluation_status":"ready_for_checkout"},
+    {"repository":"fastapi/fastapi","language":"python","default_branch":"master","visibility":"public","evaluation_status":"ready_for_checkout"},
+    {"repository":"django/django","language":"python","default_branch":"main","visibility":"public","evaluation_status":"ready_for_checkout"},
+    {"repository":"numpy/numpy","language":"python","default_branch":"main","visibility":"public","evaluation_status":"ready_for_checkout_native"},
+    {"repository":"expressjs/express","language":"javascript","default_branch":"master","visibility":"public","evaluation_status":"ready_for_checkout"},
+    {"repository":"nestjs/nest","language":"typescript","default_branch":"master","visibility":"public","evaluation_status":"ready_for_checkout"},
+    {"repository":"eslint/eslint","language":"javascript","default_branch":"main","visibility":"public","evaluation_status":"ready_for_checkout"},
+    {"repository":"webpack/webpack","language":"javascript","default_branch":"main","visibility":"public","evaluation_status":"ready_for_checkout"}
+  ],
+  "ground_truth": "unknown",
+  "execution_note": "Repository contents cannot be cloned from the current execution container because outbound DNS/network access is unavailable. No build/test result is inferred from that limitation."
+}

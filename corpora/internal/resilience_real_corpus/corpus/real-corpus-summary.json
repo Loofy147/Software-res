@@ -1,0 +1,7 @@
+{
+  "corpus_version": "real-intake-v1",
+  "records": 11,
+  "evaluation_status": "metadata_only",
+  "ground_truth_status": "unknown",
+  "purpose": "real repository/commit intake; not a correctness benchmark"
+}
