@@ -1,0 +1,53 @@
+{
+  "agent_metadata": {
+    "confidence_score": 0.5,
+    "generation_policy_id": "policy://fixture/v1",
+    "model_version": "fixture-v1"
+  },
+  "expected_outcome": "REJECT",
+  "files_changed": [
+    "app.py"
+  ],
+  "fixture_reproducibility": {
+    "artifact_identity": "sha256:fixture-same",
+    "comparison": {
+      "independent_rebuilds": false,
+      "same_artifact_identity": true,
+      "same_declared_inputs": true
+    },
+    "level": "REPRODUCIBLE"
+  },
+  "fixture_semantic_fail": true,
+  "fixture_test_evidence": {
+    "evidence_manifest_ref": "pending",
+    "fuzzing": {
+      "executed": false
+    },
+    "id": "test-C",
+    "integrity_signature": "fixture",
+    "property_tests": {
+      "cases_run": 100,
+      "executed": true,
+      "framework": "fixture",
+      "violations": 1
+    },
+    "test_environment": {
+      "container_image": "fixture"
+    },
+    "unit_tests": {
+      "count": 10,
+      "coverage_percent": 80,
+      "executed": true,
+      "failed": 0,
+      "passed": 10
+    }
+  },
+  "id": "genpatch-C",
+  "integrity_signature": "ed25519:sUfIEA8vYiWeNS/hEmwgiFTk5xuLJ0Psr1k6gM8WzH6uF5EqX+WbNGNsuuui9F+FPScxN0XBD0QJPPO5MXFkAg==",
+  "notes": "PoC fixture",
+  "patch_diff": "diff --git a/app.py b/app.py\n+print(\"fixture\")",
+  "producer_agent": "agent://fixture-coder-v1",
+  "prompt_snapshot": "fixture prompt",
+  "target_repository": "git+https://example/repo@sha:abc123",
+  "timestamp": "2026-08-20T20:00:00Z"
+}

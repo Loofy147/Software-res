@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TestEvidence",
+  "type": "object",
+  "required": ["id", "evidence_manifest_ref", "unit_tests", "property_tests", "fuzzing", "test_environment", "integrity_signature"],
+  "properties": {
+    "id": {"type": "string"},
+    "evidence_manifest_ref": {"type": "string"},
+    "unit_tests": {"type": "object"},
+    "property_tests": {"type": "object"},
+    "fuzzing": {"type": "object"},
+    "test_environment": {"type": "object"},
+    "integrity_signature": {"type": "string"}
+  },
+  "additionalProperties": true
+}

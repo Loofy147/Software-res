@@ -56,7 +56,7 @@
     "level": "REPRODUCIBLE"
   },
   "id": "genpatch-B",
-  "integrity_signature": "ed25519:vLiKMR/rK+P0L/3Qq7G5Mt3VpHHVj9gGDjGJmcWze0hi/VUxlEpZvWwLWz6pGQjX+B6ZUMi3s5bIkGXlpcadCA==",
+  "integrity_signature": "ed25519:65Ju40PZHlPOphJx1siio2+5/iZ4B2wQjYfDg3UwJMUa/tnm3TnoPZfLcGbN/t7znbcZHqerOSdnUXmT2LssDA==",
   "notes": "PoC fixture",
   "patch_diff": "diff --git a/app.py b/app.py\n+print(\"fixture\")",
   "producer_agent": "agent://fixture-coder-v1",

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/software-resilience/corpus-record.schema.json",
+  "title": "Software Resilience Corpus Record",
+  "type": "object",
+  "required": ["record_id","project_id","patch_id","source_kind","expected_outcome","actual_outcome","evidence_complete","decision_repeatable"],
+  "properties": {
+    "record_id":{"type":"string","minLength":1},
+    "project_id":{"type":"string","minLength":1},
+    "patch_id":{"type":"string","minLength":1},
+    "source_kind":{"enum":["fixture","real_patch","real_repository","synthetic_mutation"]},
+    "repository_url":{"type":"string"},
+    "source_revision":{"type":"string"},
+    "agent_id":{"type":"string"},
+    "agent_generated":{"type":"boolean"},
+    "injected_failure_code":{"type":["string","null"]},
+    "expected_outcome":{"enum":["AUTO_MERGE","REVIEW","REJECT"]},
+    "actual_outcome":{"enum":["AUTO_MERGE","REVIEW","REJECT"]},
+    "decision_rule":{"type":"string"},
+    "evidence_complete":{"type":"boolean"},
+    "decision_repeatable":{"type":"boolean"},
+    "repro_level":{"enum":["NOT_REPRODUCIBLE","REPRODUCIBLE","VERIFIED_REPRODUCIBLE"]},
+    "failure_codes":{"type":"array","items":{"type":"string"}},
+    "dimensions":{"type":"object"},
+    "notes":{"type":"string"}
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,21 @@
+{
+  "decision_accuracy_against_expected": 1.0,
+  "decision_determinism_rate": 1.0,
+  "detected_by_code": {
+    "DEP_DRIFT": 1,
+    "NOT_REPRODUCIBLE": 1,
+    "SEM_INV_VIOLATION": 1
+  },
+  "detection_rate": 1.0,
+  "evidence_completeness_rate": 1.0,
+  "failures_by_code": {
+    "DEP_DRIFT": 1,
+    "NOT_REPRODUCIBLE": 1,
+    "SEM_INV_VIOLATION": 1
+  },
+  "false_negative_rate": 0.0,
+  "false_positive_rate": 0.0,
+  "patches": 4,
+  "projects": 1,
+  "records": 4
+}

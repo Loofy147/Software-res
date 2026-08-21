@@ -1,0 +1,4 @@
+{"project_id":"fixture-01","patch_id":"A","expected_outcome":"AUTO_MERGE","actual_outcome":"AUTO_MERGE","injected_failure_code":"","evidence_complete":true,"decision_repeatable":true}
+{"project_id":"fixture-01","patch_id":"B","expected_outcome":"REJECT","actual_outcome":"REJECT","injected_failure_code":"DEP_DRIFT","evidence_complete":true,"decision_repeatable":true}
+{"project_id":"fixture-01","patch_id":"C","expected_outcome":"REJECT","actual_outcome":"REJECT","injected_failure_code":"SEM_INV_VIOLATION","evidence_complete":true,"decision_repeatable":true}
+{"project_id":"fixture-01","patch_id":"D2","expected_outcome":"REJECT","actual_outcome":"REJECT","injected_failure_code":"NOT_REPRODUCIBLE","evidence_complete":true,"decision_repeatable":true}

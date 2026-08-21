@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ReliabilityVector",
+  "type": "object",
+  "required": ["id", "target_revision", "functional", "semantic", "dependency", "runtime", "concurrency", "security", "observability", "reproducibility", "decision", "generated_at", "integrity_signature"],
+  "properties": {
+    "id": {"type": "string"},
+    "target_revision": {"type": "string"},
+    "functional": {"$ref": "#/$defs/status_dimension"},
+    "semantic": {"$ref": "#/$defs/status_dimension"},
+    "dependency": {"$ref": "#/$defs/status_dimension"},
+    "runtime": {"$ref": "#/$defs/status_dimension"},
+    "concurrency": {"$ref": "#/$defs/status_dimension"},
+    "security": {"$ref": "#/$defs/status_dimension"},
+    "observability": {"$ref": "#/$defs/status_dimension"},
+    "reproducibility": {
+      "type": "object",
+      "required": ["level", "evidence_refs"],
+      "properties": {
+        "level": {"enum": ["NOT_REPRODUCIBLE", "REPRODUCIBLE", "VERIFIED_REPRODUCIBLE"]},
+        "evidence_refs": {"type": "array", "items": {"type": "string"}},
+        "failure_codes": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "decision": {
+      "type": "object",
+      "required": ["outcome", "rule"],
+      "properties": {"outcome": {"enum": ["AUTO_MERGE", "REVIEW", "REJECT"]}, "rule": {"type": "string"}},
+      "additionalProperties": false
+    },
+    "generated_at": {"type": "string"},
+    "integrity_signature": {"type": "string"}
+  },
+  "$defs": {
+    "status_dimension": {
+      "type": "object",
+      "required": ["status", "evidence_refs", "failure_codes"],
+      "properties": {
+        "status": {"enum": ["pass", "warn", "fail", "unknown"]},
+        "evidence_refs": {"type": "array", "items": {"type": "string"}},
+        "failure_codes": {"type": "array", "items": {"type": "string"}},
+        "invariant_refs": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    }
+  }
+}
