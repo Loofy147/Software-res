@@ -1,0 +1,45 @@
+EE
+======================================================================
+ERROR: test_core (unittest.loader._FailedTest.test_core)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_core
+Traceback (most recent call last):
+  File "/home/jules/.pyenv/versions/3.12.13/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.13/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/app/tests/test_core.py", line 7, in <module>
+    from resilience_poc.validator import validate_schema
+  File "/app/src/resilience_poc/validator.py", line 9, in <module>
+    from jsonschema import Draft202012Validator, FormatChecker
+ModuleNotFoundError: No module named 'jsonschema'
+
+
+======================================================================
+ERROR: test_experiments (unittest.loader._FailedTest.test_experiments)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_experiments
+Traceback (most recent call last):
+  File "/home/jules/.pyenv/versions/3.12.13/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jules/.pyenv/versions/3.12.13/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/app/tests/test_experiments.py", line 4, in <module>
+    from resilience_poc.cli import run_experiment
+  File "/app/src/resilience_poc/cli.py", line 7, in <module>
+    from .collector import collect
+  File "/app/src/resilience_poc/collector.py", line 7, in <module>
+    from .provenance import build_provenance
+  File "/app/src/resilience_poc/provenance.py", line 9, in <module>
+    from .security import canonical_json, sha256_bytes
+  File "/app/src/resilience_poc/security.py", line 8, in <module>
+    from cryptography.hazmat.primitives import serialization
+ModuleNotFoundError: No module named 'cryptography'
+
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.000s
+
+FAILED (errors=2)

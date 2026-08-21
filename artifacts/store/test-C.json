@@ -1,0 +1,24 @@
+{
+  "evidence_manifest_ref": "pending",
+  "fuzzing": {
+    "executed": false
+  },
+  "id": "test-C",
+  "integrity_signature": "fixture",
+  "property_tests": {
+    "cases_run": 100,
+    "executed": true,
+    "framework": "fixture",
+    "violations": 1
+  },
+  "test_environment": {
+    "container_image": "fixture"
+  },
+  "unit_tests": {
+    "count": 10,
+    "coverage_percent": 80,
+    "executed": true,
+    "failed": 0,
+    "passed": 10
+  }
+}
