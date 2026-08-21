@@ -14,11 +14,41 @@ An evidence orchestration engine that converts heterogeneous artifacts (provenan
 
 ---
 
-2. Claim Matrix & Verification Boundaries
+## 2. Fundamental Architectural Rule: Fail-Closed Evidence
+
+> **"Absence of Evidence is NOT Evidence of Success."**
+
+The greatest failure mode in software verification is not merely missing a bug, but treating **missing evidence** as implicit proof of safety (**false assurance**).
+
+The Software Resilience Stack enforces a strict, fail-closed state transition model:
+
+```text
+       No Evidence / Unexecuted Check
+                   │
+                   ▼
+           UNKNOWN / REVIEW
+                   │
+    ┌──────────────┴──────────────┐
+    ▼                             ▼
+Invalid / Failed Evidence    Verified Execution & Proof
+    │                             │
+    ▼                             ▼
+FAIL / REJECT               PASS Candidate
+```
+
+### Policy Rules for Evidence Verification:
+- **No Evidence**: Any dimension lacking explicit, executed verification defaults to `UNKNOWN` or `REVIEW`, blocking `AUTO_MERGE`.
+- **Invalid / Corrupted Evidence**: Schema validation failure or broken signature triggers an immediate `FAIL` and `REJECT`.
+- **Verified Evidence**: A dimension transitions to `PASS` only when explicit proof of successful execution (`executed = true`) and zero violations are validated.
+
+---
+
+## 3. Claim Matrix & Verification Boundaries
 
 | Claim / Component | Status | Evidence Boundary |
 | :--- | :--- | :--- |
 | **Architecture Feasibility** | **SUPPORTED** | Executed PoC pipeline with 5 artifact contracts & collector/validator. |
+| **Fail-Closed Evidence Model** | **SUPPORTED** | Absence of evidence defaults to `UNKNOWN`/`REVIEW`, blocking false assurance. |
 | **Artifact Contracts & Schemas** | **SUPPORTED** | Draft 2020-12 JSON Schema validation on all PoC inputs. |
 | **Multi-Dimensional Decision Engine** | **SUPPORTED** | Deterministic vector evaluation across controlled fixtures. |
 | **Controlled Injected Failure Detection (A–D)** | **SUPPORTED** | 100% detection rate on bundled synthetic corpus. |
@@ -33,7 +63,7 @@ An evidence orchestration engine that converts heterogeneous artifacts (provenan
 
 ---
 
-3. Problem Definition
+## 4. Problem Definition
 Existing software engineering workflows produce disconnected outputs:
 - LLM Patch Generators
 - Unit / Property Tests
@@ -46,7 +76,7 @@ Existing software engineering workflows produce disconnected outputs:
 
 ---
 
-4. Core Innovations
+## 5. Core Innovations
 
 ### A. Evidence Orchestration + Policy Composition
 Instead of creating duplicate standards, the Stack orchestrates existing standards (in-toto, SLSA, VSA, CycloneDX/SPDX) into a single decision substrate.
@@ -76,9 +106,9 @@ Distinguishes between `REPRODUCIBLE` (artifact reconstructed from declared input
 
 ---
 
-5. Core Assumptions (Assumptions A–F)
+## 6. Core Assumptions (Assumptions A–F)
 
-- **Assumption A (Evidence Integrity)**: Submitted evidence manifests and attestations are truthful (requires cryptographic signatures & trusted builders).
+- **Assumption A (Evidence Integrity & Non-Vacuity)**: Submitted evidence is truthful and explicitly verified. Absence of evidence triggers fail-closed rules rather than assumed success.
 - **Assumption B (Test Completeness)**: Passing tests reflect functional correctness (bounded by test suite quality).
 - **Assumption C (Invariant Correctness)**: Policy validators rely on correctly specified invariants (garbage invariants produce reliable wrong decisions).
 - **Assumption D (Runtime Causality)**: State transitions (e.g., GIL reactivation) are causally attributed to specific imports via temporal ordering and controls.
@@ -87,7 +117,7 @@ Distinguishes between `REPRODUCIBLE` (artifact reconstructed from declared input
 
 ---
 
-6. Research Questions (RQ1–RQ7)
+## 7. Research Questions (RQ1–RQ7)
 
 - **RQ1 (Evidence Completeness)**: What minimum set of heterogeneous artifacts is necessary to decide patch safety?
 - **RQ2 (Failure Detection Sensitivity)**: How effectively does the vector detect subtle semantic, dependency, and concurrency faults?
@@ -99,7 +129,7 @@ Distinguishes between `REPRODUCIBLE` (artifact reconstructed from declared input
 
 ---
 
-7. Target Applications & Product Vision
+## 8. Target Applications & Product Vision
 
 ### A. AI Coding Governance Gateway (Resilience Gateway)
 A Webhook / PR Check layer integrated into GitHub/GitLab:
@@ -110,10 +140,10 @@ Immutable attestation trail binding AI prompt intent, generated diff, test run, 
 
 ---
 
-8. Phase 2 Roadmap: Assumption Audit & External Validation v2
+## 9. Phase 2 Roadmap: Assumption Audit & External Validation v2
 
 1. **Real GIL Execution**: Complete free-threaded CPython `3.13t/3.14t` experiment runs on GitHub Actions.
 2. **Production SLSA / VSA / DSSE**: Transition from local PoC key/builder fixtures to standard DSSE envelope signing with external KMS keys.
 3. **Controlled Mutation Corpus**: Implement systematically mutated patch sets to measure vector sensitivity and false positive/negative rates.
-4. **External Public Corpus Trial**: Evaluate 20–50 real-world repositories with independent ground-truth labels.
+4. **External Public Corpus Trial**: Evaluate 20–50 real-world repositories with independent ground-truth labels on a network-enabled runner.
 5. **Threshold & Risk Tier Calibration**: Calibrate policy risk tiers against empirical post-merge fault rates.
