@@ -8,6 +8,28 @@
   "files_changed": [
     "app.py"
   ],
+  "fixture_dependency_report": {
+    "declared_lockfile_ref": "fixture:lock",
+    "declared_materials": [],
+    "dependency_drift": {
+      "count": 0,
+      "mismatches": []
+    },
+    "evidence_manifest_ref": "fixture:A",
+    "id": "depreport-A",
+    "integrity_signature": "fixture",
+    "runtime_imports": [],
+    "sbom_ref": "fixture:sbom",
+    "supply_chain_checks": {
+      "cve_policy_pass": true,
+      "executed": true,
+      "signatures_valid": true
+    }
+  },
+  "fixture_observability_evidence": {
+    "coverage": 1.0,
+    "executed": true
+  },
   "fixture_reproducibility": {
     "artifact_identity": "sha256:fixture-same",
     "comparison": {
@@ -17,8 +39,57 @@
     },
     "level": "REPRODUCIBLE"
   },
+  "fixture_runtime_descriptor": {
+    "build": {
+      "build_flags": [],
+      "free_threaded": false
+    },
+    "gil": {
+      "build_supports_free_threading": false,
+      "observation_method": "fixture",
+      "runtime_gil_observed": true,
+      "runtime_gil_requested": true
+    },
+    "implementation": "CPython",
+    "language": "python",
+    "platform": "linux-x86_64",
+    "unexpected_gil_reactivation": false,
+    "version": "3.14-fixture"
+  },
+  "fixture_runtime_evidence": {
+    "checks": [
+      "runtime_smoke"
+    ],
+    "executed": true,
+    "status": "pass"
+  },
+  "fixture_semantic_fail": false,
+  "fixture_test_evidence": {
+    "evidence_manifest_ref": "fixture:A",
+    "fuzzing": {
+      "executed": false
+    },
+    "id": "testev-A",
+    "integrity_signature": "fixture",
+    "property_tests": {
+      "cases_run": 1200,
+      "executed": true,
+      "framework": "fixture",
+      "violations": 0
+    },
+    "test_environment": {
+      "container_image": "fixture"
+    },
+    "unit_tests": {
+      "count": 24,
+      "coverage_percent": 78.4,
+      "executed": true,
+      "failed": 0,
+      "passed": 24
+    }
+  },
   "id": "genpatch-A",
-  "integrity_signature": "ed25519:3ETfAO+XZuSg+wm5xNGgLtGIaIAfDF9oxCKTpA6qFkVsef3LdPiyx6OwJ+nTBmP5hhWyv5LjQ0K4VIVjReytBQ==",
+  "integrity_signature": "ed25519:VseHLwrQX1u1XrHc11p1ZcNBmxThBFndDQiGAS4qBBQZBzvm1aLNqOk2pjjkTUWPIIPrZEqjgbFqBGklz4BPDQ==",
   "notes": "PoC fixture",
   "patch_diff": "diff --git a/app.py b/app.py\n+print(\"fixture\")",
   "producer_agent": "agent://fixture-coder-v1",

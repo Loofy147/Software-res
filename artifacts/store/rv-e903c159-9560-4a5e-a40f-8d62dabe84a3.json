@@ -1,0 +1,71 @@
+{
+  "concurrency": {
+    "evidence_refs": [
+      "evmanifest-6718f761-acb3-4077-905b-12b8cf7cfc7c"
+    ],
+    "failure_codes": [
+      "UNEXPECTED_GIL_REACTIVATION"
+    ],
+    "status": "fail"
+  },
+  "decision": {
+    "outcome": "REJECT",
+    "rule": "critical_failure_or_unreproducible"
+  },
+  "dependency": {
+    "evidence_refs": [
+      "depreport-E"
+    ],
+    "failure_codes": [],
+    "status": "pass"
+  },
+  "functional": {
+    "evidence_refs": [
+      "testev-E"
+    ],
+    "failure_codes": [],
+    "status": "pass"
+  },
+  "generated_at": "2026-08-21T20:55:16.253264Z",
+  "id": "rv-e903c159-9560-4a5e-a40f-8d62dabe84a3",
+  "integrity_signature": "ed25519:JBAg4LeAWUw+/IuTM8EiIEhIWnHZPLLzcGuP+LvCAMQab/VmJHKIPZJiz+lhJj5oRgAiUEp/PPjAfBlIjOaTAw==",
+  "mandatory_invariant_failures": [],
+  "observability": {
+    "evidence_refs": [
+      "testev-E"
+    ],
+    "failure_codes": [],
+    "status": "pass"
+  },
+  "reproducibility": {
+    "evidence_refs": [
+      "evmanifest-6718f761-acb3-4077-905b-12b8cf7cfc7c"
+    ],
+    "failure_codes": [],
+    "level": "REPRODUCIBLE"
+  },
+  "runtime": {
+    "evidence_refs": [
+      "evmanifest-6718f761-acb3-4077-905b-12b8cf7cfc7c"
+    ],
+    "failure_codes": [],
+    "status": "pass"
+  },
+  "security": {
+    "evidence_refs": [
+      "depreport-E"
+    ],
+    "failure_codes": [],
+    "status": "pass"
+  },
+  "semantic": {
+    "evidence_refs": [
+      "testev-E"
+    ],
+    "failure_codes": [],
+    "status": "pass"
+  },
+  "target_revision": "git+https://example/repo@sha:abc123",
+  "vsa_dsse_ref": "urn:uuid:vsa-dsse-60201ff1-e8d0-44db-b7a9-35e62aee0c24",
+  "vsa_ref": "urn:uuid:vsa-bc8b93a8-1dbe-46ba-8be2-20625e1afb0e"
+}

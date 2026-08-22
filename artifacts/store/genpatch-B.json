@@ -9,13 +9,8 @@
     "app.py"
   ],
   "fixture_dependency_report": {
-    "declared_lockfile_ref": "link://lock",
-    "declared_materials": [
-      {
-        "digest": "sha256:x",
-        "uri": "pkg:pypi/requests@2.31.0"
-      }
-    ],
+    "declared_lockfile_ref": "fixture:lock",
+    "declared_materials": [],
     "dependency_drift": {
       "count": 1,
       "mismatches": [
@@ -25,26 +20,26 @@
         }
       ]
     },
-    "evidence_manifest_ref": "pending",
-    "id": "dep-B",
+    "evidence_manifest_ref": "fixture:B",
+    "id": "depreport-B",
     "integrity_signature": "fixture",
     "runtime_imports": [
       {
-        "module": "requests",
-        "source": "site-packages/requests",
-        "version": "2.31.0"
-      },
-      {
         "module": "missing_pkg",
-        "source": "site-packages/missing_pkg",
-        "version": "0.0.1"
+        "source": "fixture",
+        "version": "0.0"
       }
     ],
-    "sbom_ref": "link://sbom",
+    "sbom_ref": "fixture:sbom",
     "supply_chain_checks": {
       "cve_policy_pass": true,
+      "executed": true,
       "signatures_valid": true
     }
+  },
+  "fixture_observability_evidence": {
+    "coverage": 1.0,
+    "executed": true
   },
   "fixture_reproducibility": {
     "artifact_identity": "sha256:fixture-same",
@@ -55,8 +50,57 @@
     },
     "level": "REPRODUCIBLE"
   },
+  "fixture_runtime_descriptor": {
+    "build": {
+      "build_flags": [],
+      "free_threaded": false
+    },
+    "gil": {
+      "build_supports_free_threading": false,
+      "observation_method": "fixture",
+      "runtime_gil_observed": true,
+      "runtime_gil_requested": true
+    },
+    "implementation": "CPython",
+    "language": "python",
+    "platform": "linux-x86_64",
+    "unexpected_gil_reactivation": false,
+    "version": "3.14-fixture"
+  },
+  "fixture_runtime_evidence": {
+    "checks": [
+      "runtime_smoke"
+    ],
+    "executed": true,
+    "status": "pass"
+  },
+  "fixture_semantic_fail": false,
+  "fixture_test_evidence": {
+    "evidence_manifest_ref": "fixture:B",
+    "fuzzing": {
+      "executed": false
+    },
+    "id": "testev-B",
+    "integrity_signature": "fixture",
+    "property_tests": {
+      "cases_run": 1200,
+      "executed": true,
+      "framework": "fixture",
+      "violations": 0
+    },
+    "test_environment": {
+      "container_image": "fixture"
+    },
+    "unit_tests": {
+      "count": 24,
+      "coverage_percent": 78.4,
+      "executed": true,
+      "failed": 1,
+      "passed": 23
+    }
+  },
   "id": "genpatch-B",
-  "integrity_signature": "ed25519:65Ju40PZHlPOphJx1siio2+5/iZ4B2wQjYfDg3UwJMUa/tnm3TnoPZfLcGbN/t7znbcZHqerOSdnUXmT2LssDA==",
+  "integrity_signature": "ed25519:j9wftQbGV2vDPba2I6U/C94Ymn10gamP6h+zqzgHmr4Ekw+8JaaLS8G2PfPkawQSIqvJ2kXvpj6unxm4l0plBA==",
   "notes": "PoC fixture",
   "patch_diff": "diff --git a/app.py b/app.py\n+print(\"fixture\")",
   "producer_agent": "agent://fixture-coder-v1",

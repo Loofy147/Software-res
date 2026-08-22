@@ -43,7 +43,7 @@
     }
   },
   "id": "genpatch-C",
-  "integrity_signature": "ed25519:sUfIEA8vYiWeNS/hEmwgiFTk5xuLJ0Psr1k6gM8WzH6uF5EqX+WbNGNsuuui9F+FPScxN0XBD0QJPPO5MXFkAg==",
+  "integrity_signature": "ed25519:mBGKnjYfNY9nPIiLcoHfvUyVEj9N6ld3OW3g98XT5RRDlhzKsj1oho67Mo3w8hdZVnqdLJYoOsKtc3IPsqDcBw==",
   "notes": "PoC fixture",
   "patch_diff": "diff --git a/app.py b/app.py\n+print(\"fixture\")",
   "producer_agent": "agent://fixture-coder-v1",

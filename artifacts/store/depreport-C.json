@@ -1,0 +1,18 @@
+{
+  "declared_lockfile_ref": "fixture:lock",
+  "declared_materials": [],
+  "dependency_drift": {
+    "count": 0,
+    "mismatches": []
+  },
+  "evidence_manifest_ref": "fixture:C",
+  "id": "depreport-C",
+  "integrity_signature": "fixture",
+  "runtime_imports": [],
+  "sbom_ref": "fixture:sbom",
+  "supply_chain_checks": {
+    "cve_policy_pass": true,
+    "executed": true,
+    "signatures_valid": true
+  }
+}

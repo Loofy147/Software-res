@@ -1,0 +1,43 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "id": "vsa-50cd2e3f-2d9b-46dd-8567-79587d4cbf79",
+  "integrity_signature": "ed25519:5T/anbEC4mpnNhgECkrN7JJtxLcusmxJJ/sZqltYVGrIjrNk+ozkmUkL1Ax3mpSzHaTSszIxSwTcq+Tl3jJACg==",
+  "predicate": {
+    "inputAttestations": [
+      {
+        "digest": {
+          "sha256": "//slsa/provenance/slsa-6cba7a5d-cd8b-4a77-8a58-38af8913ea8b"
+        },
+        "uri": "link://slsa/provenance/slsa-6cba7a5d-cd8b-4a77-8a58-38af8913ea8b"
+      }
+    ],
+    "policy": {
+      "digest": {
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "uri": "urn:resilience-poc:policy:v1"
+    },
+    "resourceUri": "urn:resilience:artifact:genpatch-D1",
+    "slsaVersion": "1.2",
+    "timeVerified": "2026-08-21T21:40:30.331751Z",
+    "verificationResult": "PASSED",
+    "verifiedLevels": [
+      "SLSA_BUILD_LEVEL_UNEVALUATED"
+    ],
+    "verifier": {
+      "id": "urn:resilience-poc:validator",
+      "version": {
+        "software-resilience-poc": "0.2.0"
+      }
+    }
+  },
+  "predicateType": "https://slsa.dev/verification_summary/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "4e2095bb16df271d304321d7f66fa70addd30723b5ea40055a01f2713a61f925"
+      },
+      "name": "genpatch-D1"
+    }
+  ]
+}

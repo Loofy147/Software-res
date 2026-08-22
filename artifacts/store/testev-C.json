@@ -1,0 +1,24 @@
+{
+  "evidence_manifest_ref": "fixture:C",
+  "fuzzing": {
+    "executed": false
+  },
+  "id": "testev-C",
+  "integrity_signature": "fixture",
+  "property_tests": {
+    "cases_run": 1200,
+    "executed": true,
+    "framework": "fixture",
+    "violations": 1
+  },
+  "test_environment": {
+    "container_image": "fixture"
+  },
+  "unit_tests": {
+    "count": 24,
+    "coverage_percent": 78.4,
+    "executed": true,
+    "failed": 1,
+    "passed": 23
+  }
+}

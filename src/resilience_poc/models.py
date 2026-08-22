@@ -32,7 +32,7 @@ def decision_for_vector(vector: dict[str, Any], risk_tier: str = "low") -> dict[
     if critical_warn_or_unknown:
         return {"outcome": "REVIEW", "rule": "critical_dimensions_have_warn_or_unknown"}
 
-    if risk_tier not in {"low", "medium"}:
+    if risk_tier != "low":
         return {"outcome": "REVIEW", "rule": "risk_tier_disallows_automation"}
 
     return {"outcome": "AUTO_MERGE", "rule": "all_critical_dimensions_pass_and_reproducible"}
