@@ -65,10 +65,64 @@ def test_high_risk_never_auto_merges():
 
 
 def test_missing_verification_evidence_cannot_become_pass():
-    from resilience_poc.cli import run_experiment
-    # The real validator path is strict; a fixture run must supply explicit evidence.
-    r = run_experiment("A")
-    assert r["result"]["status"] == "completed"
+    from resilience_poc.collector import collect
+    from resilience_poc.validator import validate_manifest
+
+    patch = {
+        "id": "patch-no-evidence-test",
+        "producer_agent": "test-agent",
+        "target_repository": "repo@sha:123",
+        "agent_metadata": {"generation_policy_id": "policy-123"},
+        "risk_tier": "low",
+    }
+    manifest = collect(patch)
+    result = validate_manifest(manifest["id"])
+    assert result["status"] == "review"
+    assert "MISSING_VERIFICATION_EVIDENCE" in result["errors"]
+    assert result["reliability_vector"]["decision"]["outcome"] == "REVIEW"
+
+
+def test_property_based_vector_decision_invariants():
+    import random
+    statuses = ["pass", "warn", "fail", "unknown"]
+    repro_levels = ["NOT_REPRODUCIBLE", "REPRODUCIBLE", "VERIFIED_REPRODUCIBLE"]
+    risk_tiers = ["low", "medium", "high", "critical"]
+
+    rnd = random.Random(42)
+    for _ in range(200):
+        v = {
+            "functional": {"status": rnd.choice(statuses)},
+            "dependency": {"status": rnd.choice(statuses)},
+            "concurrency": {"status": rnd.choice(statuses)},
+            "security": {"status": rnd.choice(statuses)},
+            "reproducibility": {"level": rnd.choice(repro_levels)},
+            "mandatory_invariant_failures": ["FAIL_INV"] if rnd.random() < 0.2 else [],
+        }
+        tier = rnd.choice(risk_tiers)
+        decision = decision_for_vector(v, risk_tier=tier)
+        outcome = decision["outcome"]
+
+        # Invariant I1: Critical FAIL, mandatory failure, or unreproducible -> REJECT
+        has_critical_fail = any(v[d]["status"] == "fail" for d in ["functional", "dependency", "concurrency", "security"])
+        if has_critical_fail or v["mandatory_invariant_failures"] or v["reproducibility"]["level"] == "NOT_REPRODUCIBLE":
+            assert outcome == "REJECT"
+
+        # Invariant I2: Any unknown/warn critical dimension -> never AUTO_MERGE
+        has_critical_warn_unk = any(v[d]["status"] in {"warn", "unknown"} for d in ["functional", "dependency", "concurrency", "security"])
+        if has_critical_warn_unk:
+            assert outcome in {"REVIEW", "REJECT"}
+
+        # Invariant I3: Non-low risk tier -> never AUTO_MERGE
+        if tier != "low":
+            assert outcome in {"REVIEW", "REJECT"}
+
+        # Invariant I4: AUTO_MERGE requires all critical dimensions pass, reproducible, no mandatory failure, low risk
+        if outcome == "AUTO_MERGE":
+            assert not has_critical_fail
+            assert not has_critical_warn_unk
+            assert not v["mandatory_invariant_failures"]
+            assert v["reproducibility"]["level"] in {"REPRODUCIBLE", "VERIFIED_REPRODUCIBLE"}
+            assert tier == "low"
 
 
 def test_unknown_runtime_and_observability_are_not_passes():

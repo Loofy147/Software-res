@@ -13,14 +13,16 @@ def test_real_gil_runner_refuses_non_free_threaded_environment(tmp_path):
         cwd=ROOT,
         text=True,
         capture_output=True,
-        check=True,
+        check=False,
     )
     payload = json.loads(result.stdout)
     if payload["runtime_before"]["build_supports_free_threading"]:
         assert payload["status"] != "ENVIRONMENT_NOT_READY"
+        assert result.returncode == 0
     else:
         assert payload["status"] == "ENVIRONMENT_NOT_READY"
         assert payload["failure_code"] == "FREE_THREADED_RUNTIME_UNAVAILABLE"
+        assert result.returncode == 20
 
 
 def test_local_c_extension_control_import_sequence_runs_without_reactivation():

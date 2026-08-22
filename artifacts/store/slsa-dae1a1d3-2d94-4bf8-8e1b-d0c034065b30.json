@@ -1,0 +1,38 @@
+{
+  "predicateType": "https://slsa.dev/provenance/v1",
+  "statement": {
+    "_type": "https://in-toto.io/Statement/v1",
+    "predicate": {
+      "buildDefinition": {
+        "buildType": "https://example.invalid/software-resilience-poc/build/v0",
+        "externalParameters": {
+          "sourceRevision": "repo@sha:123"
+        },
+        "internalParameters": {
+          "pocMode": true
+        },
+        "resolvedDependencies": []
+      },
+      "runDetails": {
+        "builder": {
+          "id": "builder://poc-local"
+        },
+        "byproducts": [],
+        "metadata": {
+          "finishedOn": "2026-08-22T15:11:20.636057Z",
+          "invocationId": "inv-a1bfbb7a-d6f7-41e8-8260-15cdbbda3c8c",
+          "startedOn": "2026-08-22T15:11:20.636035Z"
+        }
+      }
+    },
+    "predicateType": "https://slsa.dev/provenance/v1",
+    "subject": [
+      {
+        "digest": {
+          "sha256": "e76903cb54eff5559f084f7c8549f5ad78b565188b9205db508f837224c1dd1f"
+        },
+        "name": "repo@sha:123"
+      }
+    ]
+  }
+}

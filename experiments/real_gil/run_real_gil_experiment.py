@@ -175,7 +175,15 @@ def main() -> int:
         require_free_threading=not args.no_free_threading_required,
     )
     print(json.dumps(result, indent=2, sort_keys=True))
-    return 0 if result["status"] in {"PASS", "ENVIRONMENT_NOT_READY"} else 1
+    status = result["status"]
+    if status == "PASS":
+        return 0
+    elif status == "ENVIRONMENT_NOT_READY":
+        return 20
+    elif status == "INVALID_PRECONDITION":
+        return 21
+    else:
+        return 1
 
 
 if __name__ == "__main__":

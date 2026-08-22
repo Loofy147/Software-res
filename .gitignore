@@ -5,4 +5,6 @@ __pycache__/
 *.o
 build/
 artifacts/generated/
+artifacts/store/
+artifacts/real-gil/
 keys/*.pem

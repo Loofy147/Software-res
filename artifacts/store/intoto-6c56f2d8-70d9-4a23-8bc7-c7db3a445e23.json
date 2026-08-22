@@ -1,0 +1,40 @@
+{
+  "payload": "eyJfdHlwZSI6Imh0dHBzOi8vaW4tdG90by5pby9TdGF0ZW1lbnQvdjEiLCJwcmVkaWNhdGUiOnsiYnVpbGREZWZpbml0aW9uIjp7ImJ1aWxkVHlwZSI6Imh0dHBzOi8vZXhhbXBsZS5pbnZhbGlkL3NvZnR3YXJlLXJlc2lsaWVuY2UtcG9jL2J1aWxkL3YwIiwiZXh0ZXJuYWxQYXJhbWV0ZXJzIjp7InNvdXJjZVJldmlzaW9uIjoicmVwb0BzaGE6MTIzIn0sImludGVybmFsUGFyYW1ldGVycyI6eyJwb2NNb2RlIjp0cnVlfSwicmVzb2x2ZWREZXBlbmRlbmNpZXMiOltdfSwicnVuRGV0YWlscyI6eyJidWlsZGVyIjp7ImlkIjoiYnVpbGRlcjovL3BvYy1sb2NhbCJ9LCJieXByb2R1Y3RzIjpbXSwibWV0YWRhdGEiOnsiZmluaXNoZWRPbiI6IjIwMjYtMDgtMjJUMTU6MTE6NDcuOTIwNTQxWiIsImludm9jYXRpb25JZCI6Imludi01OWJkNGRhMi0yZjE2LTQxYzItYTc3OS0xZTUwN2U4ZjA1YjEiLCJzdGFydGVkT24iOiIyMDI2LTA4LTIyVDE1OjExOjQ3LjkyMDUyMVoifX19LCJwcmVkaWNhdGVUeXBlIjoiaHR0cHM6Ly9zbHNhLmRldi9wcm92ZW5hbmNlL3YxIiwic3ViamVjdCI6W3siZGlnZXN0Ijp7InNoYTI1NiI6ImU3NjkwM2NiNTRlZmY1NTU5ZjA4NGY3Yzg1NDlmNWFkNzhiNTY1MTg4YjkyMDVkYjUwOGY4MzcyMjRjMWRkMWYifSwibmFtZSI6InJlcG9Ac2hhOjEyMyJ9XX0=",
+  "payloadType": "application/vnd.in-toto+json",
+  "signatures": [],
+  "statement": {
+    "_type": "https://in-toto.io/Statement/v1",
+    "predicate": {
+      "buildDefinition": {
+        "buildType": "https://example.invalid/software-resilience-poc/build/v0",
+        "externalParameters": {
+          "sourceRevision": "repo@sha:123"
+        },
+        "internalParameters": {
+          "pocMode": true
+        },
+        "resolvedDependencies": []
+      },
+      "runDetails": {
+        "builder": {
+          "id": "builder://poc-local"
+        },
+        "byproducts": [],
+        "metadata": {
+          "finishedOn": "2026-08-22T15:11:47.920541Z",
+          "invocationId": "inv-59bd4da2-2f16-41c2-a779-1e507e8f05b1",
+          "startedOn": "2026-08-22T15:11:47.920521Z"
+        }
+      }
+    },
+    "predicateType": "https://slsa.dev/provenance/v1",
+    "subject": [
+      {
+        "digest": {
+          "sha256": "e76903cb54eff5559f084f7c8549f5ad78b565188b9205db508f837224c1dd1f"
+        },
+        "name": "repo@sha:123"
+      }
+    ]
+  }
+}

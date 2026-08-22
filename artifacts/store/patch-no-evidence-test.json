@@ -1,0 +1,10 @@
+{
+  "agent_metadata": {
+    "generation_policy_id": "policy-123"
+  },
+  "id": "patch-no-evidence-test",
+  "integrity_signature": "ed25519:lQgmcG9Cl1W6MWqZ9P7ahaVsmojLAeELewsC6gQ1Nad5CD4ZNjB6gN7y++Z90CC0D3hnvVnNPemF+h/2KThEDA==",
+  "producer_agent": "test-agent",
+  "risk_tier": "low",
+  "target_repository": "repo@sha:123"
+}

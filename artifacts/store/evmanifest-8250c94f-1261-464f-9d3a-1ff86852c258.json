@@ -1,0 +1,44 @@
+{
+  "ai_evidence": {
+    "agent_confidence": null,
+    "generation_policy_id": "policy-123",
+    "prompt_snapshot_ref": "urn:uuid:patch-no-evidence-test",
+    "target_repository": "repo@sha:123"
+  },
+  "dependency_lock_ref": "link://locks/fixture-lock",
+  "evidence_payload_ref": "link://artifacts/pending",
+  "generated_at": "2026-08-22T15:11:20.637317Z",
+  "generated_patch_ref": "patch-no-evidence-test",
+  "id": "evmanifest-8250c94f-1261-464f-9d3a-1ff86852c258",
+  "integrity_signature": "ed25519:6NZiYBkdJbCgaQtLZ7UKyJDLISb4lM2hRdTzN7xgyh5CWd7ejiUBcgpVDoiPtFU1Oiz/xnQPLCi09bk2xpcTAQ==",
+  "intoto_envelope_ref": "link://in-toto/envelope/intoto-5d954344-3a07-40d3-ae59-379b99dcfe0f",
+  "producer_agent": "test-agent",
+  "reproducibility": {
+    "artifact_identity": null,
+    "comparison": {
+      "independent_rebuilds": false,
+      "same_artifact_identity": false,
+      "same_declared_inputs": false
+    },
+    "level": "NOT_REPRODUCIBLE"
+  },
+  "runtime_descriptor": {
+    "build": {
+      "build_flags": [],
+      "free_threaded": false
+    },
+    "gil": {
+      "build_supports_free_threading": null,
+      "observation_method": "not_observed_at_collection",
+      "runtime_gil_observed": null,
+      "runtime_gil_requested": null
+    },
+    "implementation": "unknown",
+    "language": "unknown",
+    "platform": "linux-x86_64",
+    "version": "unknown"
+  },
+  "slsa_provenance_ref": "link://slsa/provenance/slsa-dae1a1d3-2d94-4bf8-8e1b-d0c034065b30",
+  "source_revision": "repo@sha:123",
+  "type": "EvidenceManifest"
+}
