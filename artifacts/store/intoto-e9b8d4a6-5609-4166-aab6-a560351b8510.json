@@ -1,0 +1,40 @@
+{
+  "payload": "eyJfdHlwZSI6Imh0dHBzOi8vaW4tdG90by5pby9TdGF0ZW1lbnQvdjEiLCJwcmVkaWNhdGUiOnsiYnVpbGREZWZpbml0aW9uIjp7ImJ1aWxkVHlwZSI6Imh0dHBzOi8vZXhhbXBsZS5pbnZhbGlkL3NvZnR3YXJlLXJlc2lsaWVuY2UtcG9jL2J1aWxkL3YwIiwiZXh0ZXJuYWxQYXJhbWV0ZXJzIjp7InNvdXJjZVJldmlzaW9uIjoiZ2l0K2h0dHBzOi8vZXhhbXBsZS9yZXBvQHNoYTphYmMxMjMifSwiaW50ZXJuYWxQYXJhbWV0ZXJzIjp7InBvY01vZGUiOnRydWV9LCJyZXNvbHZlZERlcGVuZGVuY2llcyI6W119LCJydW5EZXRhaWxzIjp7ImJ1aWxkZXIiOnsiaWQiOiJidWlsZGVyOi8vcG9jLWxvY2FsIn0sImJ5cHJvZHVjdHMiOltdLCJtZXRhZGF0YSI6eyJmaW5pc2hlZE9uIjoiMjAyNi0wOC0yMVQyMDo1NTowNS42NTMyMzRaIiwiaW52b2NhdGlvbklkIjoiaW52LTBlZWIxZjliLTJiOTItNDRhZi05N2E1LWMwYjQwOWU4MmM4MiIsInN0YXJ0ZWRPbiI6IjIwMjYtMDgtMjFUMjA6NTU6MDUuNjUzMjA2WiJ9fX0sInByZWRpY2F0ZVR5cGUiOiJodHRwczovL3Nsc2EuZGV2L3Byb3ZlbmFuY2UvdjEiLCJzdWJqZWN0IjpbeyJkaWdlc3QiOnsic2hhMjU2IjoiNTJjMTdhYzA4ZDVkNTJkZmM0ZTBkNjk1ZDQ0NWExYjNjNTdkNDkzYWQ4YWFjMTI4NjQzOGJjODE1NTRiZTcxYSJ9LCJuYW1lIjoiZ2l0K2h0dHBzOi8vZXhhbXBsZS9yZXBvQHNoYTphYmMxMjMifV19",
+  "payloadType": "application/vnd.in-toto+json",
+  "signatures": [],
+  "statement": {
+    "_type": "https://in-toto.io/Statement/v1",
+    "predicate": {
+      "buildDefinition": {
+        "buildType": "https://example.invalid/software-resilience-poc/build/v0",
+        "externalParameters": {
+          "sourceRevision": "git+https://example/repo@sha:abc123"
+        },
+        "internalParameters": {
+          "pocMode": true
+        },
+        "resolvedDependencies": []
+      },
+      "runDetails": {
+        "builder": {
+          "id": "builder://poc-local"
+        },
+        "byproducts": [],
+        "metadata": {
+          "finishedOn": "2026-08-21T20:55:05.653234Z",
+          "invocationId": "inv-0eeb1f9b-2b92-44af-97a5-c0b409e82c82",
+          "startedOn": "2026-08-21T20:55:05.653206Z"
+        }
+      }
+    },
+    "predicateType": "https://slsa.dev/provenance/v1",
+    "subject": [
+      {
+        "digest": {
+          "sha256": "52c17ac08d5d52dfc4e0d695d445a1b3c57d493ad8aac1286438bc81554be71a"
+        },
+        "name": "git+https://example/repo@sha:abc123"
+      }
+    ]
+  }
+}

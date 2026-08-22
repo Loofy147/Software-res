@@ -1,0 +1,43 @@
+{
+  "ai_evidence": {
+    "agent_confidence": 0.5,
+    "generation_policy_id": "policy://fixture/v1",
+    "prompt_snapshot_ref": "urn:uuid:genpatch-D2",
+    "target_repository": "git+https://example/repo@sha:abc123"
+  },
+  "dependency_lock_ref": "link://locks/fixture-lock",
+  "evidence_payload_ref": "link://artifacts/pending",
+  "generated_at": "2026-08-21T20:55:05.651018Z",
+  "generated_patch_ref": "genpatch-D2",
+  "id": "evmanifest-d373cee1-9731-496a-8441-6ff2f69a1e08",
+  "integrity_signature": "ed25519:9MpQdDC6iZ9u0HqWkentRarh/0JoxLQKmKoVyHJczmT7h5ZQOU9q+7uVTovRcub3y+47lSRolBkVMPx4H10wDg==",
+  "intoto_envelope_ref": "link://in-toto/envelope/intoto-418459a9-6df9-4c52-be41-7b5f75075547",
+  "producer_agent": "agent://fixture-coder-v1",
+  "reproducibility": {
+    "artifact_identity": null,
+    "comparison": {
+      "independent_rebuilds": true,
+      "same_artifact_identity": false,
+      "same_declared_inputs": true
+    },
+    "level": "NOT_REPRODUCIBLE"
+  },
+  "runtime_descriptor": {
+    "build": {
+      "build_flags": [],
+      "free_threaded": false
+    },
+    "gil": {
+      "build_supports_free_threading": false,
+      "observation_method": "CPython:sys._is_gil_enabled",
+      "runtime_gil_observed": true,
+      "runtime_gil_requested": true
+    },
+    "implementation": "CPython",
+    "language": "python",
+    "platform": "linux-x86_64",
+    "version": "3.14.x"
+  },
+  "slsa_provenance_ref": "link://slsa/provenance/slsa-c69189a5-5b79-452c-a0ea-7d3c373ce9e7",
+  "type": "EvidenceManifest"
+}

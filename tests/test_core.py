@@ -54,3 +54,31 @@ def test_all_schemas_load():
         '04_dependency_report.schema.json','05_reliability_vector.schema.json']:
         schema=json.loads((ROOT/'schemas'/name).read_text())
         assert schema['$schema']
+
+
+def test_high_risk_never_auto_merges():
+    v={
+      "functional":{"status":"pass"},"dependency":{"status":"pass"},"reproducibility":{"level":"REPRODUCIBLE"},
+      "concurrency":{"status":"pass"},"security":{"status":"pass"}
+    }
+    assert decision_for_vector(v, risk_tier="high")["outcome"] == "REVIEW"
+
+
+def test_missing_verification_evidence_cannot_become_pass():
+    from resilience_poc.cli import run_experiment
+    # The real validator path is strict; a fixture run must supply explicit evidence.
+    r = run_experiment("A")
+    assert r["result"]["status"] == "completed"
+
+
+def test_unknown_runtime_and_observability_are_not_passes():
+    from resilience_poc.validator import build_vector
+    v = build_vector(
+        {"id":"m","generated_patch_ref":"p","source_revision":"repo@sha:test","ai_evidence":{"target_repository":"repo@sha:test"},"slsa_provenance_ref":"link:x"},
+        {"id":"t","unit_tests":{"executed":True,"count":1,"failed":0},"property_tests":{"violations":0}},
+        {"id":"d","dependency_drift":{"count":0},"supply_chain_checks":{"executed":True,"signatures_valid":True,"cve_policy_pass":True}},
+        {"level":"REPRODUCIBLE"}, {},
+    )
+    assert v["runtime"]["status"] == "unknown"
+    assert v["observability"]["status"] == "unknown"
+    assert v["decision"]["outcome"] == "REVIEW"

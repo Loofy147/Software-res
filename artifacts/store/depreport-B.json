@@ -1,0 +1,29 @@
+{
+  "declared_lockfile_ref": "fixture:lock",
+  "declared_materials": [],
+  "dependency_drift": {
+    "count": 1,
+    "mismatches": [
+      {
+        "module": "missing_pkg",
+        "type": "undeclared_runtime_import"
+      }
+    ]
+  },
+  "evidence_manifest_ref": "fixture:B",
+  "id": "depreport-B",
+  "integrity_signature": "fixture",
+  "runtime_imports": [
+    {
+      "module": "missing_pkg",
+      "source": "fixture",
+      "version": "0.0"
+    }
+  ],
+  "sbom_ref": "fixture:sbom",
+  "supply_chain_checks": {
+    "cve_policy_pass": true,
+    "executed": true,
+    "signatures_valid": true
+  }
+}

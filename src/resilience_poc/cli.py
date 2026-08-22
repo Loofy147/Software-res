@@ -18,6 +18,39 @@ def load_json(path: Path) -> dict:
 
 def run_experiment(name: str) -> dict:
     patch = load_json(FIXTURES / name / "01_generated_patch.json")
+    # Synthetic fixtures must carry explicit verification evidence; the validator
+    # never manufactures passing evidence. Real manifests without these fields
+    # are correctly routed to REVIEW.
+    patch["fixture_test_evidence"] = {
+        "id": f"testev-{name}",
+        "evidence_manifest_ref": f"fixture:{name}",
+        "unit_tests": {"executed": True, "count": 24, "passed": 24 if name not in {"B", "C"} else 23, "failed": 0 if name not in {"B", "C"} else 1, "coverage_percent": 78.4},
+        "property_tests": {"executed": True, "framework": "fixture", "cases_run": 1200, "violations": 1 if name == "C" else 0},
+        "fuzzing": {"executed": False},
+        "test_environment": {"container_image": "fixture"},
+        "integrity_signature": "fixture",
+    }
+    patch["fixture_dependency_report"] = {
+        "id": f"depreport-{name}",
+        "evidence_manifest_ref": f"fixture:{name}",
+        "declared_lockfile_ref": "fixture:lock",
+        "declared_materials": [],
+        "runtime_imports": [{"module": "missing_pkg", "version": "0.0", "source": "fixture"}] if name == "B" else [],
+        "dependency_drift": {"mismatches": [{"type": "undeclared_runtime_import", "module": "missing_pkg"}] if name == "B" else [], "count": 1 if name == "B" else 0},
+        "sbom_ref": "fixture:sbom",
+        "supply_chain_checks": {"executed": True, "signatures_valid": True, "cve_policy_pass": True},
+        "integrity_signature": "fixture",
+    }
+    patch["fixture_semantic_fail"] = name == "C"
+    patch["fixture_runtime_evidence"] = {"executed": True, "status": "pass", "checks": ["runtime_smoke"]}
+    patch["fixture_observability_evidence"] = {"executed": True, "coverage": 1.0}
+    patch["fixture_runtime_descriptor"] = {
+        "implementation": "CPython", "language": "python", "version": "3.14-fixture",
+        "build": {"free_threaded": False, "build_flags": []},
+        "gil": {"build_supports_free_threading": False, "runtime_gil_requested": True, "runtime_gil_observed": True, "observation_method": "fixture"},
+        "unexpected_gil_reactivation": name == "E",
+        "platform": "linux-x86_64",
+    }
     manifest = collect(patch)
     # Fixture behaviors are carried in the generated patch to keep the runner deterministic.
     manifest["reproducibility"] = patch.get("fixture_reproducibility", manifest["reproducibility"])
