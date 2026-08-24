@@ -1,0 +1,43 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "id": "vsa-fd02e27c-be6a-49d1-bab2-a4756a83e736",
+  "integrity_signature": "ed25519:n61/O715b2qKc7DOl74KBDQ8nX1GCdCh7Ij4HS9kdaGmWjlnldmmuZKVx3YPPvYaAw8Fuvtpg3FODBT260w3DQ==",
+  "predicate": {
+    "inputAttestations": [
+      {
+        "digest": {
+          "sha256": "x"
+        },
+        "uri": "link:x"
+      }
+    ],
+    "policy": {
+      "digest": {
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "uri": "urn:resilience-poc:policy:v1"
+    },
+    "resourceUri": "urn:resilience:artifact:p",
+    "slsaVersion": "1.2",
+    "timeVerified": "2026-08-22T15:07:33.721673Z",
+    "verificationResult": "FAILED",
+    "verifiedLevels": [
+      "FAILED"
+    ],
+    "verifier": {
+      "id": "urn:resilience-poc:validator",
+      "version": {
+        "software-resilience-poc": "0.2.0"
+      }
+    }
+  },
+  "predicateType": "https://slsa.dev/verification_summary/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "c18a0643c378edd1bb9a47a38b67009853efbbd98b01a3d9360655f6f78e1055"
+      },
+      "name": "p"
+    }
+  ]
+}

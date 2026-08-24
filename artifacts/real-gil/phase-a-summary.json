@@ -123,26 +123,26 @@
             "zlib"
           ],
           "loaded_modules_count": 99,
-          "monotonic_ns": 2759120699006,
+          "monotonic_ns": 1028884519990,
           "platform": "Linux-6.8.0-x86_64-with-glibc2.39",
           "py_gil_disabled": null,
           "python_gil_env": null,
-          "timestamp": "2026-08-21T22:05:36.771181Z",
+          "timestamp": "2026-08-22T15:23:06.809347Z",
           "version": "3.12.13",
           "version_string": "3.12.13 (main, Mar  6 2026, 16:37:31) [GCC 13.3.0]"
         },
         {
           "event_type": "gil_before_import",
           "gil_enabled": null,
-          "monotonic_ns": 2759129148469,
-          "timestamp": "2026-08-21T22:05:36.779635Z"
+          "monotonic_ns": 1028892837424,
+          "timestamp": "2026-08-22T15:23:06.817669Z"
         },
         {
           "event_type": "extension_import_start",
           "module": "compatible_ext",
           "module_path": null,
-          "monotonic_ns": 2759129155139,
-          "timestamp": "2026-08-21T22:05:36.779652Z"
+          "monotonic_ns": 1028892844079,
+          "timestamp": "2026-08-22T15:23:06.817686Z"
         },
         {
           "error": null,
@@ -150,14 +150,14 @@
           "module": "compatible_ext",
           "module_path": null,
           "module_sha256": null,
-          "monotonic_ns": 2759129418311,
-          "timestamp": "2026-08-21T22:05:36.779910Z"
+          "monotonic_ns": 1028893102861,
+          "timestamp": "2026-08-22T15:23:06.817940Z"
         },
         {
           "event_type": "gil_after_import",
           "gil_enabled": null,
-          "monotonic_ns": 2759129433035,
-          "timestamp": "2026-08-21T22:05:36.779931Z"
+          "monotonic_ns": 1028893118117,
+          "timestamp": "2026-08-22T15:23:06.817960Z"
         },
         {
           "argv": [
@@ -272,11 +272,11 @@
             "zlib"
           ],
           "loaded_modules_count": 100,
-          "monotonic_ns": 2759129438838,
+          "monotonic_ns": 1028893123712,
           "platform": "Linux-6.8.0-x86_64-with-glibc2.39",
           "py_gil_disabled": null,
           "python_gil_env": null,
-          "timestamp": "2026-08-21T22:05:36.779937Z",
+          "timestamp": "2026-08-22T15:23:06.817966Z",
           "version": "3.12.13",
           "version_string": "3.12.13 (main, Mar  6 2026, 16:37:31) [GCC 13.3.0]"
         }
@@ -284,9 +284,9 @@
       "expected_reactivation": false,
       "experiment": "REAL_GIL",
       "failure_code": "FREE_THREADED_RUNTIME_UNAVAILABLE",
-      "generated_at": "2026-08-21T22:05:36.779981Z",
+      "generated_at": "2026-08-22T15:23:06.818010Z",
       "module": "compatible_ext",
-      "process_returncode": 0,
+      "process_returncode": 20,
       "require_free_threading": true,
       "runtime_after": {
         "argv": [
@@ -400,11 +400,11 @@
           "zlib"
         ],
         "loaded_modules_count": 100,
-        "monotonic_ns": 2759129438838,
+        "monotonic_ns": 1028893123712,
         "platform": "Linux-6.8.0-x86_64-with-glibc2.39",
         "py_gil_disabled": null,
         "python_gil_env": null,
-        "timestamp": "2026-08-21T22:05:36.779937Z",
+        "timestamp": "2026-08-22T15:23:06.817966Z",
         "version": "3.12.13",
         "version_string": "3.12.13 (main, Mar  6 2026, 16:37:31) [GCC 13.3.0]"
       },
@@ -519,11 +519,11 @@
           "zlib"
         ],
         "loaded_modules_count": 99,
-        "monotonic_ns": 2759120699006,
+        "monotonic_ns": 1028884519990,
         "platform": "Linux-6.8.0-x86_64-with-glibc2.39",
         "py_gil_disabled": null,
         "python_gil_env": null,
-        "timestamp": "2026-08-21T22:05:36.771181Z",
+        "timestamp": "2026-08-22T15:23:06.809347Z",
         "version": "3.12.13",
         "version_string": "3.12.13 (main, Mar  6 2026, 16:37:31) [GCC 13.3.0]"
       },
@@ -534,7 +534,7 @@
   "environment_ready": false,
   "evidence_chain_completeness": 1.0,
   "experiment": "PHASE_A_REAL_GIL_BATCH",
-  "generated_at": "2026-08-21T22:05:36.873782Z",
+  "generated_at": "2026-08-22T15:23:06.906194Z",
   "runs_per_condition": 1,
   "treatment_pass": false,
   "treatment_runs": [
@@ -657,26 +657,26 @@
             "zlib"
           ],
           "loaded_modules_count": 99,
-          "monotonic_ns": 2759202958918,
+          "monotonic_ns": 1028962990481,
           "platform": "Linux-6.8.0-x86_64-with-glibc2.39",
           "py_gil_disabled": null,
           "python_gil_env": null,
-          "timestamp": "2026-08-21T22:05:36.853439Z",
+          "timestamp": "2026-08-22T15:23:06.887817Z",
           "version": "3.12.13",
           "version_string": "3.12.13 (main, Mar  6 2026, 16:37:31) [GCC 13.3.0]"
         },
         {
           "event_type": "gil_before_import",
           "gil_enabled": null,
-          "monotonic_ns": 2759211785820,
-          "timestamp": "2026-08-21T22:05:36.862270Z"
+          "monotonic_ns": 1028971143014,
+          "timestamp": "2026-08-22T15:23:06.895974Z"
         },
         {
           "event_type": "extension_import_start",
           "module": "incompatible_ext",
           "module_path": null,
-          "monotonic_ns": 2759211792423,
-          "timestamp": "2026-08-21T22:05:36.862290Z"
+          "monotonic_ns": 1028971149685,
+          "timestamp": "2026-08-22T15:23:06.895991Z"
         },
         {
           "error": null,
@@ -684,14 +684,14 @@
           "module": "incompatible_ext",
           "module_path": null,
           "module_sha256": null,
-          "monotonic_ns": 2759212095600,
-          "timestamp": "2026-08-21T22:05:36.862586Z"
+          "monotonic_ns": 1028971372770,
+          "timestamp": "2026-08-22T15:23:06.896211Z"
         },
         {
           "event_type": "gil_after_import",
           "gil_enabled": null,
-          "monotonic_ns": 2759212112574,
-          "timestamp": "2026-08-21T22:05:36.862610Z"
+          "monotonic_ns": 1028971386075,
+          "timestamp": "2026-08-22T15:23:06.896228Z"
         },
         {
           "argv": [
@@ -807,11 +807,11 @@
             "zlib"
           ],
           "loaded_modules_count": 100,
-          "monotonic_ns": 2759212118653,
+          "monotonic_ns": 1028971391264,
           "platform": "Linux-6.8.0-x86_64-with-glibc2.39",
           "py_gil_disabled": null,
           "python_gil_env": null,
-          "timestamp": "2026-08-21T22:05:36.862617Z",
+          "timestamp": "2026-08-22T15:23:06.896234Z",
           "version": "3.12.13",
           "version_string": "3.12.13 (main, Mar  6 2026, 16:37:31) [GCC 13.3.0]"
         }
@@ -819,9 +819,9 @@
       "expected_reactivation": true,
       "experiment": "REAL_GIL",
       "failure_code": "FREE_THREADED_RUNTIME_UNAVAILABLE",
-      "generated_at": "2026-08-21T22:05:36.862666Z",
+      "generated_at": "2026-08-22T15:23:06.896275Z",
       "module": "incompatible_ext",
-      "process_returncode": 0,
+      "process_returncode": 20,
       "require_free_threading": true,
       "runtime_after": {
         "argv": [
@@ -936,11 +936,11 @@
           "zlib"
         ],
         "loaded_modules_count": 100,
-        "monotonic_ns": 2759212118653,
+        "monotonic_ns": 1028971391264,
         "platform": "Linux-6.8.0-x86_64-with-glibc2.39",
         "py_gil_disabled": null,
         "python_gil_env": null,
-        "timestamp": "2026-08-21T22:05:36.862617Z",
+        "timestamp": "2026-08-22T15:23:06.896234Z",
         "version": "3.12.13",
         "version_string": "3.12.13 (main, Mar  6 2026, 16:37:31) [GCC 13.3.0]"
       },
@@ -1056,11 +1056,11 @@
           "zlib"
         ],
         "loaded_modules_count": 99,
-        "monotonic_ns": 2759202958918,
+        "monotonic_ns": 1028962990481,
         "platform": "Linux-6.8.0-x86_64-with-glibc2.39",
         "py_gil_disabled": null,
         "python_gil_env": null,
-        "timestamp": "2026-08-21T22:05:36.853439Z",
+        "timestamp": "2026-08-22T15:23:06.887817Z",
         "version": "3.12.13",
         "version_string": "3.12.13 (main, Mar  6 2026, 16:37:31) [GCC 13.3.0]"
       },
