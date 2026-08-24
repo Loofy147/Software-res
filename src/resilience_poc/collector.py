@@ -7,9 +7,9 @@ from uuid import uuid4
 from .provenance import build_provenance
 from .security import ensure_keypair, sign_json
 from .storage import put_json
+from .runtime_paths import KEYS
 
 BASE = Path(__file__).resolve().parents[2]
-KEYS = BASE / "keys"
 PRIVATE = KEYS / "poc_ed25519_private.pem"
 PUBLIC = KEYS / "poc_ed25519_public.pem"
 
@@ -28,6 +28,7 @@ def collect(patch: dict) -> dict:
         "id": manifest_id,
         "type": "EvidenceManifest",
         "producer_agent": patch["producer_agent"],
+        "risk_tier": patch.get("risk_tier", "low"),
         "generated_patch_ref": patch["id"],
         "source_revision": patch.get("target_repository", "unknown"),
         "intoto_envelope_ref": f"link://in-toto/envelope/{envelope_id}",

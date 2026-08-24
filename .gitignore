@@ -2,9 +2,11 @@ __pycache__/
 .pytest_cache/
 *.pyc
 *.so
-*.o
+.venv/
+dist/
 build/
-artifacts/generated/
-artifacts/store/
-artifacts/real-gil/
+*.egg-info/
+artifacts/store/*
 keys/*.pem
+.resilience-poc/
+.test-resilience-poc/

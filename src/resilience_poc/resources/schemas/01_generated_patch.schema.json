@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GeneratedPatch",
+  "type": "object",
+  "required": ["id", "producer_agent", "timestamp", "target_repository", "patch_diff", "files_changed", "prompt_snapshot", "agent_metadata", "integrity_signature"],
+  "properties": {
+    "id": {"type": "string", "minLength": 1},
+    "producer_agent": {"type": "string", "minLength": 1},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "target_repository": {"type": "string", "minLength": 1},
+    "patch_diff": {"type": "string"},
+    "files_changed": {"type": "array", "items": {"type": "string"}},
+    "prompt_snapshot": {"type": "string"},
+    "agent_metadata": {
+      "type": "object",
+      "required": ["model_version", "generation_policy_id"],
+      "properties": {
+        "model_version": {"type": "string"},
+        "generation_policy_id": {"type": "string"},
+        "confidence_score": {"type": "number", "minimum": 0, "maximum": 1}
+      },
+      "additionalProperties": true
+    },
+    "notes": {"type": "string"},
+    "integrity_signature": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": false
+}

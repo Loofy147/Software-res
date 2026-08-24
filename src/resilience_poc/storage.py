@@ -4,9 +4,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-BASE = Path(__file__).resolve().parents[2]
-STORE = BASE / "artifacts" / "store"
-STORE.mkdir(parents=True, exist_ok=True)
+from .runtime_paths import STORE
 
 
 def put_json(obj: dict[str, Any], artifact_id: str) -> Path:

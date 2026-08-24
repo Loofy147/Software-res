@@ -7,8 +7,8 @@ def test_vector_emits_vsa(tmp_path):
     # This test exercises VSA creation through the real validator helper.
     # The repository's existing keypair is created lazily by other tests.
     from resilience_poc.security import ensure_keypair
-    base = Path(__file__).resolve().parents[1]
-    keys = base / 'keys'
+    from resilience_poc.runtime_paths import KEYS
+    keys = KEYS
     ensure_keypair(keys / 'poc_ed25519_private.pem', keys / 'poc_ed25519_public.pem')
     manifest = {
         'id': 'evmanifest-vsa-test',
@@ -35,8 +35,8 @@ def test_vector_emits_vsa(tmp_path):
 def test_vector_emits_verifiable_dsse_vsa(tmp_path):
     from resilience_poc.security import ensure_keypair
     from resilience_poc.dsse import verify_dsse, ensure_ecdsa_p256_keypair
-    base = Path(__file__).resolve().parents[1]
-    keys = base / 'keys'
+    from resilience_poc.runtime_paths import KEYS
+    keys = KEYS
     ensure_keypair(keys / 'poc_ed25519_private.pem', keys / 'poc_ed25519_public.pem')
     ensure_ecdsa_p256_keypair(keys / 'poc_dsse_p256_private.pem', keys / 'poc_dsse_p256_public.pem')
     manifest = {

@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DependencyReport",
+  "type": "object",
+  "required": [
+    "id",
+    "evidence_manifest_ref",
+    "declared_lockfile_ref",
+    "declared_materials",
+    "runtime_imports",
+    "dependency_drift",
+    "sbom_ref",
+    "supply_chain_checks",
+    "integrity_signature"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "evidence_manifest_ref": {
+      "type": "string"
+    },
+    "declared_lockfile_ref": {
+      "type": "string"
+    },
+    "declared_materials": {
+      "type": "array"
+    },
+    "runtime_imports": {
+      "type": "array"
+    },
+    "dependency_drift": {
+      "type": "object"
+    },
+    "sbom_ref": {
+      "type": "string"
+    },
+    "supply_chain_checks": {
+      "type": "object",
+      "required": [
+        "executed",
+        "signatures_valid",
+        "cve_policy_pass"
+      ],
+      "properties": {
+        "executed": {
+          "type": "boolean"
+        },
+        "signatures_valid": {
+          "type": "boolean"
+        },
+        "cve_policy_pass": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": true
+    },
+    "integrity_signature": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}
