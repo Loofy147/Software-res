@@ -7,9 +7,24 @@ Verification:
 - mutation check: 3/3 mutants killed
 - controlled A-E decisions: expected outcomes
 - wheel build: PASS
-- clean-venv install smoke test: PASS when dependencies are already available
-- release workspace cleaned of local .so/.pyc/__pycache__ outputs before final archive
-- real free-threaded CPython execution: OPEN
+- clean-venv install smoke test: PASS
+- CI workflow: .github/workflows/ci.yml (Python 3.12, 3.13)
+- Real-GIL workflow: .github/workflows/real-gil.yml (Python 3.13t, 3.14t)
+
+Artifact Checksums (SHA-256):
+ddd3a0dd6ff700598b7f22ff70ccb230e645543ad32a518a53310f6770a41c2f  Software-Resilience-Stack-v0.2.0.zip
+dbe1c004e7d3e0d3f6cb8cda64f8ba345952999c5680f2e509da13d433f6874e  archives/software_resilience_external_corpus_v1.zip
+b4ed70dd65fc849d53b6dc3b0b99fc3ba1e070439d06d18ac2277b3b90f7a84a  archives/software_resilience_external_eval_v1.zip
+
+Reproducible Test Command:
+  python3 -m venv .venv && source .venv/bin/activate
+  pip install -e '.[test]'
+  pytest -v
+  python3 tools/mutation_check.py
+  python3 -m resilience_poc.cli run-experiments
+
+Open items:
+- real free-threaded CPython execution: OPEN (environment-gated)
 - production SLSA trust: OPEN
 - external held-out execution: OPEN
 - threshold calibration/generalization: OPEN

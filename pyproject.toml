@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "software-resilience-poc"
 version = "0.2.0"
 description = "Evidence Collector and Validator MVP for the Software Resilience Stack"
-requires-python = ">=3.13,<3.14"
+requires-python = ">=3.12,<3.15"
 dependencies = [
   "fastapi==0.128.2",
   "uvicorn==0.48.0",

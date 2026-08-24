@@ -7,9 +7,10 @@ A small evidence-validation PoC that converts explicit software evidence into a 
 
 ## Verification
 - 26 pytest tests passing.
-- 3/3 targeted policy mutants killed.
-- Controlled A–E decisions match expected outcomes.
-- Wheel builds and installs into a clean venv when dependencies are already present.
+- 3/3 targeted policy mutants killed (`tools/mutation_check.py`).
+- Controlled A–E decisions match expected outcomes (`python -m resilience_poc.cli run-experiments`).
+- Wheel builds and installs cleanly into a fresh virtual environment (`pip install -e '.[test]'`).
+- Automated CI workflows added for GitHub Actions (`.github/workflows/ci.yml`).
 
 ## Not claimed
 This release does not claim real free-threaded runtime causality, production SLSA trust, external-corpus effectiveness, calibrated thresholds, or general reliability improvement.
