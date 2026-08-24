@@ -1,10 +1,10 @@
 import json
 from pathlib import Path
+from importlib import resources
 
 from resilience_poc.cli import run_experiment
 from resilience_poc.metrics import summarize
 
-ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_experiments_a_to_e_decisions():
@@ -29,7 +29,10 @@ def test_experiments_a_to_e_decisions():
 
 
 def test_experiment_contracts_are_json():
-    for p in (ROOT / "fixtures" / "experiments").glob("*/01_generated_patch.json"):
-        obj = json.loads(p.read_text())
-        assert obj["id"]
-        assert "agent_metadata" in obj
+    fixtures = resources.files('resilience_poc').joinpath('resources','fixtures','experiments')
+    for d in fixtures.iterdir():
+        if d.is_dir():
+            p = d.joinpath('01_generated_patch.json')
+            obj = json.loads(p.read_text(encoding='utf-8'))
+            assert obj['id']
+            assert 'agent_metadata' in obj

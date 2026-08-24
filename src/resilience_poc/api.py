@@ -7,7 +7,7 @@ from .collector import collect
 from .storage import get_json
 from .validator import validate_manifest
 
-app = FastAPI(title="Software Resilience Stack Evidence PoC", version="0.1.0")
+app = FastAPI(title="Software Resilience Stack Evidence PoC", version="0.2.0")
 
 
 class PatchPayload(BaseModel):

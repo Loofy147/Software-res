@@ -3,21 +3,22 @@ from __future__ import annotations
 import json
 import sys
 from pathlib import Path
+from importlib import resources
 
 from .collector import collect
 from .storage import get_json
 from .validator import validate_manifest
 
 BASE = Path(__file__).resolve().parents[2]
-FIXTURES = BASE / "fixtures" / "experiments"
+FIXTURES = resources.files("resilience_poc").joinpath("resources", "fixtures", "experiments")
 
 
-def load_json(path: Path) -> dict:
+def load_json(path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
 def run_experiment(name: str) -> dict:
-    patch = load_json(FIXTURES / name / "01_generated_patch.json")
+    patch = load_json(FIXTURES.joinpath(name, "01_generated_patch.json"))
     # Synthetic fixtures must carry explicit verification evidence; the validator
     # never manufactures passing evidence. Real manifests without these fields
     # are correctly routed to REVIEW.

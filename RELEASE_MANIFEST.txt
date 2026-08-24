@@ -1,0 +1,15 @@
+Software Resilience Stack v0.2.0
+Release type: engineering hardening release
+Scope: explicit-evidence validation + non-compensatory Reliability Vector + deterministic merge/review/reject decision.
+
+Verification:
+- pytest: 26 passed
+- mutation check: 3/3 mutants killed
+- controlled A-E decisions: expected outcomes
+- wheel build: PASS
+- clean-venv install smoke test: PASS when dependencies are already available
+- release workspace cleaned of local .so/.pyc/__pycache__ outputs before final archive
+- real free-threaded CPython execution: OPEN
+- production SLSA trust: OPEN
+- external held-out execution: OPEN
+- threshold calibration/generalization: OPEN

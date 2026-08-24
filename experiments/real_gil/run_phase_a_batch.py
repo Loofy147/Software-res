@@ -91,7 +91,11 @@ def main() -> int:
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(summary, indent=2, sort_keys=True))
     print(json.dumps({k: summary[k] for k in ("environment_ready", "control_pass", "treatment_pass", "accepted", "causal_detection_rate", "causal_attribution_accuracy", "control_pass_rate", "evidence_chain_completeness")}, indent=2))
-    return 0 if accepted or not env_ready else 1
+    if accepted:
+        return 0
+    if not env_ready:
+        return 20
+    return 1
 
 
 if __name__ == "__main__":

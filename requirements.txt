@@ -1,5 +1,5 @@
-fastapi>=0.110
-uvicorn>=0.29
-jsonschema>=4.21
-pytest>=8.0
-cryptography>=42.0
+fastapi==0.128.2
+uvicorn==0.48.0
+jsonschema==4.26.0
+pytest==9.0.2
+cryptography==46.0.4

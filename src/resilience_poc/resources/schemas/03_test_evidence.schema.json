@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TestEvidence",
+  "type": "object",
+  "required": [
+    "id",
+    "evidence_manifest_ref",
+    "unit_tests",
+    "property_tests",
+    "fuzzing",
+    "test_environment",
+    "integrity_signature"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "evidence_manifest_ref": {
+      "type": "string"
+    },
+    "unit_tests": {
+      "type": "object",
+      "required": [
+        "executed",
+        "count",
+        "passed",
+        "failed"
+      ],
+      "properties": {
+        "executed": {
+          "type": "boolean"
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "passed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "failed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "coverage_percent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "additionalProperties": true
+    },
+    "property_tests": {
+      "type": "object",
+      "required": [
+        "executed",
+        "cases_run",
+        "violations"
+      ],
+      "properties": {
+        "executed": {
+          "type": "boolean"
+        },
+        "cases_run": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "violations": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "framework": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "fuzzing": {
+      "type": "object"
+    },
+    "test_environment": {
+      "type": "object"
+    },
+    "integrity_signature": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

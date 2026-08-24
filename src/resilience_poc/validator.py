@@ -3,22 +3,23 @@ from __future__ import annotations
 import json
 from datetime import datetime, timezone
 from pathlib import Path
+from importlib import resources
 from typing import Any
 from uuid import uuid4
 
 from jsonschema import Draft202012Validator, FormatChecker
 
 from .models import decision_for_vector
+from . import __version__
 from .provenance import SLSA_PREDICATE
 from .repro import assess_reproducibility
 from .security import sign_json, verify_json
 from .storage import get_json, put_json
+from .runtime_paths import KEYS
 from .vsa import build_vsa, sha256_bytes, canonical_json
 from .dsse import ensure_ecdsa_p256_keypair, sign_dsse
 
 BASE = Path(__file__).resolve().parents[2]
-SCHEMAS = BASE / "schemas"
-KEYS = BASE / "keys"
 PRIVATE = KEYS / "poc_ed25519_private.pem"
 PUBLIC = KEYS / "poc_ed25519_public.pem"
 DSSE_PRIVATE = KEYS / "poc_dsse_p256_private.pem"
@@ -26,7 +27,7 @@ DSSE_PUBLIC = KEYS / "poc_dsse_p256_public.pem"
 
 
 def load_schema(name: str) -> dict:
-    return json.loads((SCHEMAS / name).read_text())
+    return json.loads(resources.files("resilience_poc").joinpath("resources", "schemas", name).read_text(encoding="utf-8"))
 
 
 def validate_schema(obj: dict, name: str) -> list[str]:
@@ -97,7 +98,9 @@ def build_vector(manifest: dict, test_ev: dict, dep_ev: dict, repro: dict, gil: 
         "mandatory_invariant_failures": (["SEM_INV_VIOLATION"] if semantic_fail else []),
         "generated_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
     }
-    vector["decision"] = decision_for_vector(vector)
+    risk_tier = manifest.get("risk_tier", "low")
+    vector["risk_tier"] = risk_tier
+    vector["decision"] = decision_for_vector(vector, risk_tier=risk_tier)
 
     # Phase B VSA: the PoC intentionally makes no SLSA level claim.
     # AUTO_MERGE maps to PASSED; REVIEW/REJECT map to FAILED until policy verification completes.
@@ -111,7 +114,7 @@ def build_vector(manifest: dict, test_ev: dict, dep_ev: dict, repro: dict, gil: 
         artifact_digest=artifact_digest,
         resource_uri=f"urn:resilience:artifact:{manifest['generated_patch_ref']}",
         verifier_id="urn:resilience-poc:validator",
-        verifier_version={"software-resilience-poc": "0.2.0"},
+        verifier_version={"software-resilience-poc": __version__},
         policy_uri="urn:resilience-poc:policy:v1",
         policy_digest="sha256:" + "0" * 64,
         input_attestations=[

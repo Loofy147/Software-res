@@ -163,6 +163,13 @@ def run(module_name: str, expected_reactivation: bool, require_free_threading: b
     return result
 
 
+EXIT_PASS = 0
+EXIT_EXPECTED_VIOLATION = 10
+EXIT_ENVIRONMENT_NOT_READY = 20
+EXIT_HARNESS_ERROR = 30
+EXIT_INVALID_PRECONDITION = 40
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("module")
@@ -177,13 +184,14 @@ def main() -> int:
     print(json.dumps(result, indent=2, sort_keys=True))
     status = result["status"]
     if status == "PASS":
-        return 0
-    elif status == "ENVIRONMENT_NOT_READY":
-        return 20
-    elif status == "INVALID_PRECONDITION":
-        return 21
-    else:
-        return 1
+        return EXIT_PASS
+    if status == "ENVIRONMENT_NOT_READY":
+        return EXIT_ENVIRONMENT_NOT_READY
+    if status == "INVALID_PRECONDITION":
+        return EXIT_INVALID_PRECONDITION
+    if status == "FAIL" and result.get("failure_code") == "UNEXPECTED_GIL_REACTIVATION":
+        return EXIT_EXPECTED_VIOLATION
+    return EXIT_HARNESS_ERROR
 
 
 if __name__ == "__main__":
