@@ -18,7 +18,7 @@
           ],
           "build_supports_free_threading": false,
           "event_type": "runtime_preflight",
-          "executable": "/home/jules/.pyenv/versions/3.12.13/bin/python3",
+          "executable": "/home/jules/.pyenv/versions/3.12.13/bin/python3.12",
           "gil_enabled": null,
           "implementation": "cpython",
           "loaded_modules": [
@@ -123,26 +123,26 @@
             "zlib"
           ],
           "loaded_modules_count": 99,
-          "monotonic_ns": 1590417709206,
+          "monotonic_ns": 773529165903,
           "platform": "Linux-6.8.0-x86_64-with-glibc2.39",
           "py_gil_disabled": null,
           "python_gil_env": null,
-          "timestamp": "2026-08-24T19:25:41.062044Z",
+          "timestamp": "2026-08-25T17:13:29.960514Z",
           "version": "3.12.13",
           "version_string": "3.12.13 (main, Mar  6 2026, 16:37:31) [GCC 13.3.0]"
         },
         {
           "event_type": "gil_before_import",
           "gil_enabled": null,
-          "monotonic_ns": 1590426549565,
-          "timestamp": "2026-08-24T19:25:41.070888Z"
+          "monotonic_ns": 773538208432,
+          "timestamp": "2026-08-25T17:13:29.969561Z"
         },
         {
           "event_type": "extension_import_start",
           "module": "compatible_ext",
           "module_path": null,
-          "monotonic_ns": 1590426556094,
-          "timestamp": "2026-08-24T19:25:41.070907Z"
+          "monotonic_ns": 773538215312,
+          "timestamp": "2026-08-25T17:13:29.969578Z"
         },
         {
           "error": null,
@@ -150,14 +150,14 @@
           "module": "compatible_ext",
           "module_path": null,
           "module_sha256": null,
-          "monotonic_ns": 1590426834928,
-          "timestamp": "2026-08-24T19:25:41.071181Z"
+          "monotonic_ns": 773538446236,
+          "timestamp": "2026-08-25T17:13:29.969805Z"
         },
         {
           "event_type": "gil_after_import",
           "gil_enabled": null,
-          "monotonic_ns": 1590426858082,
-          "timestamp": "2026-08-24T19:25:41.071202Z"
+          "monotonic_ns": 773538460479,
+          "timestamp": "2026-08-25T17:13:29.969823Z"
         },
         {
           "argv": [
@@ -166,7 +166,7 @@
           ],
           "build_supports_free_threading": false,
           "event_type": "runtime_postflight",
-          "executable": "/home/jules/.pyenv/versions/3.12.13/bin/python3",
+          "executable": "/home/jules/.pyenv/versions/3.12.13/bin/python3.12",
           "gil_enabled": null,
           "implementation": "cpython",
           "loaded_modules": [
@@ -272,11 +272,11 @@
             "zlib"
           ],
           "loaded_modules_count": 100,
-          "monotonic_ns": 1590426864646,
+          "monotonic_ns": 773538466041,
           "platform": "Linux-6.8.0-x86_64-with-glibc2.39",
           "py_gil_disabled": null,
           "python_gil_env": null,
-          "timestamp": "2026-08-24T19:25:41.071216Z",
+          "timestamp": "2026-08-25T17:13:29.969830Z",
           "version": "3.12.13",
           "version_string": "3.12.13 (main, Mar  6 2026, 16:37:31) [GCC 13.3.0]"
         }
@@ -284,7 +284,7 @@
       "expected_reactivation": false,
       "experiment": "REAL_GIL",
       "failure_code": "FREE_THREADED_RUNTIME_UNAVAILABLE",
-      "generated_at": "2026-08-24T19:25:41.071264Z",
+      "generated_at": "2026-08-25T17:13:29.969872Z",
       "module": "compatible_ext",
       "process_returncode": 20,
       "require_free_threading": true,
@@ -294,7 +294,7 @@
           "compatible_ext"
         ],
         "build_supports_free_threading": false,
-        "executable": "/home/jules/.pyenv/versions/3.12.13/bin/python3",
+        "executable": "/home/jules/.pyenv/versions/3.12.13/bin/python3.12",
         "gil_enabled": null,
         "implementation": "cpython",
         "loaded_modules": [
@@ -400,11 +400,11 @@
           "zlib"
         ],
         "loaded_modules_count": 100,
-        "monotonic_ns": 1590426864646,
+        "monotonic_ns": 773538466041,
         "platform": "Linux-6.8.0-x86_64-with-glibc2.39",
         "py_gil_disabled": null,
         "python_gil_env": null,
-        "timestamp": "2026-08-24T19:25:41.071216Z",
+        "timestamp": "2026-08-25T17:13:29.969830Z",
         "version": "3.12.13",
         "version_string": "3.12.13 (main, Mar  6 2026, 16:37:31) [GCC 13.3.0]"
       },
@@ -414,7 +414,7 @@
           "compatible_ext"
         ],
         "build_supports_free_threading": false,
-        "executable": "/home/jules/.pyenv/versions/3.12.13/bin/python3",
+        "executable": "/home/jules/.pyenv/versions/3.12.13/bin/python3.12",
         "gil_enabled": null,
         "implementation": "cpython",
         "loaded_modules": [
@@ -519,11 +519,11 @@
           "zlib"
         ],
         "loaded_modules_count": 99,
-        "monotonic_ns": 1590417709206,
+        "monotonic_ns": 773529165903,
         "platform": "Linux-6.8.0-x86_64-with-glibc2.39",
         "py_gil_disabled": null,
         "python_gil_env": null,
-        "timestamp": "2026-08-24T19:25:41.062044Z",
+        "timestamp": "2026-08-25T17:13:29.960514Z",
         "version": "3.12.13",
         "version_string": "3.12.13 (main, Mar  6 2026, 16:37:31) [GCC 13.3.0]"
       },
@@ -534,7 +534,7 @@
   "environment_ready": false,
   "evidence_chain_completeness": 1.0,
   "experiment": "PHASE_A_REAL_GIL_BATCH",
-  "generated_at": "2026-08-24T19:25:41.176206Z",
+  "generated_at": "2026-08-25T17:13:30.074782Z",
   "runs_per_condition": 1,
   "treatment_pass": false,
   "treatment_runs": [
@@ -552,7 +552,7 @@
           ],
           "build_supports_free_threading": false,
           "event_type": "runtime_preflight",
-          "executable": "/home/jules/.pyenv/versions/3.12.13/bin/python3",
+          "executable": "/home/jules/.pyenv/versions/3.12.13/bin/python3.12",
           "gil_enabled": null,
           "implementation": "cpython",
           "loaded_modules": [
@@ -657,26 +657,26 @@
             "zlib"
           ],
           "loaded_modules_count": 99,
-          "monotonic_ns": 1590507672046,
+          "monotonic_ns": 773623948045,
           "platform": "Linux-6.8.0-x86_64-with-glibc2.39",
           "py_gil_disabled": null,
           "python_gil_env": null,
-          "timestamp": "2026-08-24T19:25:41.152006Z",
+          "timestamp": "2026-08-25T17:13:30.055296Z",
           "version": "3.12.13",
           "version_string": "3.12.13 (main, Mar  6 2026, 16:37:31) [GCC 13.3.0]"
         },
         {
           "event_type": "gil_before_import",
           "gil_enabled": null,
-          "monotonic_ns": 1590519925089,
-          "timestamp": "2026-08-24T19:25:41.164263Z"
+          "monotonic_ns": 773632386282,
+          "timestamp": "2026-08-25T17:13:30.063737Z"
         },
         {
           "event_type": "extension_import_start",
           "module": "incompatible_ext",
           "module_path": null,
-          "monotonic_ns": 1590519932040,
-          "timestamp": "2026-08-24T19:25:41.164283Z"
+          "monotonic_ns": 773632393023,
+          "timestamp": "2026-08-25T17:13:30.063756Z"
         },
         {
           "error": null,
@@ -684,14 +684,14 @@
           "module": "incompatible_ext",
           "module_path": null,
           "module_sha256": null,
-          "monotonic_ns": 1590520226387,
-          "timestamp": "2026-08-24T19:25:41.164572Z"
+          "monotonic_ns": 773632617524,
+          "timestamp": "2026-08-25T17:13:30.063978Z"
         },
         {
           "event_type": "gil_after_import",
           "gil_enabled": null,
-          "monotonic_ns": 1590520242232,
-          "timestamp": "2026-08-24T19:25:41.164593Z"
+          "monotonic_ns": 773632631425,
+          "timestamp": "2026-08-25T17:13:30.063995Z"
         },
         {
           "argv": [
@@ -701,7 +701,7 @@
           ],
           "build_supports_free_threading": false,
           "event_type": "runtime_postflight",
-          "executable": "/home/jules/.pyenv/versions/3.12.13/bin/python3",
+          "executable": "/home/jules/.pyenv/versions/3.12.13/bin/python3.12",
           "gil_enabled": null,
           "implementation": "cpython",
           "loaded_modules": [
@@ -807,11 +807,11 @@
             "zlib"
           ],
           "loaded_modules_count": 100,
-          "monotonic_ns": 1590520248020,
+          "monotonic_ns": 773632636918,
           "platform": "Linux-6.8.0-x86_64-with-glibc2.39",
           "py_gil_disabled": null,
           "python_gil_env": null,
-          "timestamp": "2026-08-24T19:25:41.164600Z",
+          "timestamp": "2026-08-25T17:13:30.064001Z",
           "version": "3.12.13",
           "version_string": "3.12.13 (main, Mar  6 2026, 16:37:31) [GCC 13.3.0]"
         }
@@ -819,7 +819,7 @@
       "expected_reactivation": true,
       "experiment": "REAL_GIL",
       "failure_code": "FREE_THREADED_RUNTIME_UNAVAILABLE",
-      "generated_at": "2026-08-24T19:25:41.164649Z",
+      "generated_at": "2026-08-25T17:13:30.064042Z",
       "module": "incompatible_ext",
       "process_returncode": 20,
       "require_free_threading": true,
@@ -830,7 +830,7 @@
           "--expect-reactivation"
         ],
         "build_supports_free_threading": false,
-        "executable": "/home/jules/.pyenv/versions/3.12.13/bin/python3",
+        "executable": "/home/jules/.pyenv/versions/3.12.13/bin/python3.12",
         "gil_enabled": null,
         "implementation": "cpython",
         "loaded_modules": [
@@ -936,11 +936,11 @@
           "zlib"
         ],
         "loaded_modules_count": 100,
-        "monotonic_ns": 1590520248020,
+        "monotonic_ns": 773632636918,
         "platform": "Linux-6.8.0-x86_64-with-glibc2.39",
         "py_gil_disabled": null,
         "python_gil_env": null,
-        "timestamp": "2026-08-24T19:25:41.164600Z",
+        "timestamp": "2026-08-25T17:13:30.064001Z",
         "version": "3.12.13",
         "version_string": "3.12.13 (main, Mar  6 2026, 16:37:31) [GCC 13.3.0]"
       },
@@ -951,7 +951,7 @@
           "--expect-reactivation"
         ],
         "build_supports_free_threading": false,
-        "executable": "/home/jules/.pyenv/versions/3.12.13/bin/python3",
+        "executable": "/home/jules/.pyenv/versions/3.12.13/bin/python3.12",
         "gil_enabled": null,
         "implementation": "cpython",
         "loaded_modules": [
@@ -1056,11 +1056,11 @@
           "zlib"
         ],
         "loaded_modules_count": 99,
-        "monotonic_ns": 1590507672046,
+        "monotonic_ns": 773623948045,
         "platform": "Linux-6.8.0-x86_64-with-glibc2.39",
         "py_gil_disabled": null,
         "python_gil_env": null,
-        "timestamp": "2026-08-24T19:25:41.152006Z",
+        "timestamp": "2026-08-25T17:13:30.055296Z",
         "version": "3.12.13",
         "version_string": "3.12.13 (main, Mar  6 2026, 16:37:31) [GCC 13.3.0]"
       },
