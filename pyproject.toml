@@ -19,7 +19,10 @@ test = ["pytest==9.0.2"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["src"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["resilience_poc*"]
 
 [tool.setuptools.package-data]
 resilience_poc = ["resources/schemas/*.json", "resources/fixtures/experiments/*/*.json"]
