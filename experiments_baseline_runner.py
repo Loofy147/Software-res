@@ -60,9 +60,22 @@ def summarize(rows: list[dict[str, Any]]) -> dict[str, Any]:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("dataset", type=Path)
-    parser.add_argument("--output", type=Path, required=True)
+    """Run baseline dataset validation metrics evaluation.
+
+    Loads a JSONL baseline dataset containing evaluation records for software patch decisions
+    and computes overall resilience decision metrics including detection rate, false positive rate,
+    decision determinism, and evidence completeness.
+    """
+    parser = argparse.ArgumentParser(
+        description="Evaluates baseline dataset evaluation records for Software Resilience Stack decisions.",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""\
+Example:
+  python3 experiments_baseline_runner.py dataset.jsonl --output summary.json
+""",
+    )
+    parser.add_argument("dataset", type=Path, help="Path to input JSONL baseline dataset file")
+    parser.add_argument("--output", type=Path, required=True, help="Path to write JSON summary metrics")
     args = parser.parse_args()
     records = load_records(args.dataset)
     result = summarize(records)
