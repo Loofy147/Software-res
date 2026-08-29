@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 import pytest
 
-from experiments_baseline_runner import load_records, summarize, main
+from resilience_poc.experiments_baseline_runner import load_records, summarize, main
 
 
 def test_baseline_runner_summarize(tmp_path: Path):
