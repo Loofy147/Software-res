@@ -6,10 +6,22 @@ from typing import Any
 CRITICAL = {"functional", "dependency", "reproducibility", "concurrency", "security"}
 REPRO_LEVELS = {"NOT_REPRODUCIBLE": 0, "REPRODUCIBLE": 1, "VERIFIED_REPRODUCIBLE": 2}
 
+
 @dataclass(frozen=True)
 class ValidationResult:
     valid: bool
     errors: tuple[str, ...]
+
+
+def _effective_status(dimension: dict[str, Any]) -> str:
+    """Resolve policy status from explicit epistemic evidence state."""
+    status = dimension.get("status", "unknown")
+    state = dimension.get("evidence_state")
+    if state in {"INVALID", "FAIL"}:
+        return "fail"
+    if state in {"UNOBSERVED", "STALE", "CONFLICT"}:
+        return "fail" if status == "fail" else "unknown"
+    return status
 
 
 def decision_for_vector(vector: dict[str, Any], risk_tier: str = "low") -> dict[str, str]:
@@ -17,7 +29,7 @@ def decision_for_vector(vector: dict[str, Any], risk_tier: str = "low") -> dict[
     critical_fail = []
     critical_warn_or_unknown = []
     for dim in CRITICAL - {"reproducibility"}:
-        status = vector.get(dim, {}).get("status", "unknown")
+        status = _effective_status(vector.get(dim, {}))
         if status == "fail":
             critical_fail.append(dim)
         elif status in {"warn", "unknown"}:
