@@ -18,6 +18,7 @@ def base_vector():
 def test_evidence_states_have_explicit_semantics():
     assert assess_evidence([]) == EvidenceState.UNOBSERVED
     assert assess_evidence([{"status": "pass"}]) == EvidenceState.PASS
+    assert assess_evidence([{"status": "warn"}]) == EvidenceState.PASS
     assert assess_evidence([{"status": "fail"}]) == EvidenceState.FAIL
     assert assess_evidence([{"valid": False}]) == EvidenceState.INVALID
     assert assess_evidence([{"status": "pass", "stale": True}]) == EvidenceState.STALE
