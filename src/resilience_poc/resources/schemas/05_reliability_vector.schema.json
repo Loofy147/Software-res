@@ -39,6 +39,7 @@
       "required": ["status", "evidence_refs", "failure_codes"],
       "properties": {
         "status": {"enum": ["pass", "warn", "fail", "unknown"]},
+        "evidence_state": {"enum": ["UNOBSERVED", "PASS", "FAIL", "INVALID", "STALE", "CONFLICT"]},
         "evidence_refs": {"type": "array", "items": {"type": "string"}},
         "failure_codes": {"type": "array", "items": {"type": "string"}},
         "invariant_refs": {"type": "array", "items": {"type": "string"}}
