@@ -10,9 +10,9 @@ from uuid import uuid4
 from jsonschema import Draft202012Validator, FormatChecker
 
 from .models import decision_for_vector
+from .evidence import assess_evidence
 from . import __version__
 from .provenance import SLSA_PREDICATE
-from .repro import assess_reproducibility
 from .security import sign_json, verify_json
 from .storage import get_json, put_json
 from .runtime_paths import KEYS
@@ -55,17 +55,29 @@ def validate_provenance(envelope: dict) -> list[str]:
 def reconcile_dependencies(declared: list[dict[str, Any]], runtime: list[dict[str, Any]]) -> dict[str, Any]:
     declared_pkgs = {item.get("uri", "").split("@", 1)[0] for item in declared}
     runtime_pkgs = {item.get("module", "") for item in runtime}
-    # PoC normalization: module names are compared against package resource suffixes.
     declared_names = {x.removeprefix("pkg:pypi/") for x in declared_pkgs}
     missing = sorted(runtime_pkgs - declared_names)
     return {"mismatches": [{"type": "undeclared_runtime_import", "module": m} for m in missing], "count": len(missing)}
 
 
-def build_vector(manifest: dict, test_ev: dict, dep_ev: dict, repro: dict, gil: dict, semantic_fail: bool = False, security_fail: bool = False, concurrency_reactivation: bool = False, runtime_evidence: dict | None = None, observability_evidence: dict | None = None) -> dict:
-    semantic_status = "fail" if semantic_fail else ("warn" if test_ev["property_tests"]["violations"] else "pass")
+def build_vector(
+    manifest: dict,
+    test_ev: dict,
+    dep_ev: dict,
+    repro: dict,
+    gil: dict,
+    semantic_fail: bool = False,
+    security_fail: bool = False,
+    concurrency_reactivation: bool = False,
+    runtime_evidence: dict | None = None,
+    observability_evidence: dict | None = None,
+) -> dict:
+    unit = test_ev.get("unit_tests", {})
+    tests_executed = unit.get("executed") is True and int(unit.get("count", 0)) > 0
+    functional_status = "unknown" if not tests_executed else ("pass" if unit.get("failed", 0) == 0 else "fail")
+    semantic_status = "fail" if semantic_fail else ("warn" if test_ev["property_tests"]["violations"] else ("pass" if tests_executed else "unknown"))
+
     dependency_status = "fail" if dep_ev["dependency_drift"]["count"] else "pass"
-    concurrency_fail = bool(concurrency_reactivation or gil.get("unexpected_gil_reactivation"))
-    concurrency_status = "fail" if concurrency_fail else ("pass" if gil.get("runtime_gil_observed") is not None else "unknown")
     supply_checks = dep_ev.get("supply_chain_checks", {})
     security_checks_executed = supply_checks.get("executed") is True
     security_status = "unknown"
@@ -74,26 +86,31 @@ def build_vector(manifest: dict, test_ev: dict, dep_ev: dict, repro: dict, gil: 
     elif security_checks_executed:
         security_status = "pass"
 
-    unit = test_ev.get("unit_tests", {})
-    tests_executed = unit.get("executed") is True and int(unit.get("count", 0)) > 0
-    if not tests_executed:
-        functional_status = "unknown"
-    else:
-        functional_status = "pass" if unit.get("failed", 0) == 0 else "fail"
-
+    concurrency_fail = bool(concurrency_reactivation or gil.get("unexpected_gil_reactivation"))
+    concurrency_status = "fail" if concurrency_fail else ("pass" if gil.get("runtime_gil_observed") is not None else "unknown")
     runtime_ok = isinstance(runtime_evidence, dict) and runtime_evidence.get("executed") is True and runtime_evidence.get("status") == "pass"
     observability_ok = isinstance(observability_evidence, dict) and observability_evidence.get("executed") is True
+    runtime_status = "pass" if runtime_ok else "unknown"
+    observability_status = "pass" if observability_ok else "unknown"
+
+    functional_state = assess_evidence([{"status": functional_status}]) if tests_executed else assess_evidence([])
+    semantic_state = assess_evidence([{"status": semantic_status}]) if tests_executed else assess_evidence([])
+    dependency_state = assess_evidence([{"status": dependency_status}])
+    security_state = assess_evidence([{"status": security_status}]) if security_checks_executed or security_fail else assess_evidence([])
+    runtime_state = assess_evidence([{"status": runtime_status}]) if runtime_ok else assess_evidence([])
+    concurrency_state = assess_evidence([{"status": concurrency_status}]) if gil.get("runtime_gil_observed") is not None or concurrency_fail else assess_evidence([])
+    observability_state = assess_evidence([{"status": observability_status}]) if observability_ok else assess_evidence([])
 
     vector = {
         "id": f"rv-{uuid4()}",
         "target_revision": manifest.get("source_revision", manifest.get("ai_evidence", {}).get("target_repository", manifest.get("generated_patch_ref", "unknown"))),
-        "functional": {"status": functional_status, "evidence_refs": [test_ev["id"]], "failure_codes": [] if functional_status == "pass" else ["UNIT_TEST_FAILURE"]},
-        "semantic": {"status": semantic_status, "evidence_refs": [test_ev["id"]], "failure_codes": ["SEM_INV_VIOLATION"] if semantic_fail else []},
-        "dependency": {"status": dependency_status, "evidence_refs": [dep_ev["id"]], "failure_codes": ["DEP_DRIFT"] if dependency_status == "fail" else []},
-        "runtime": {"status": "pass" if runtime_ok else "unknown", "evidence_refs": [manifest["id"]], "failure_codes": [] if runtime_ok else ["RUNTIME_EVIDENCE_MISSING"]},
-        "concurrency": {"status": concurrency_status, "evidence_refs": [manifest["id"]], "failure_codes": ["UNEXPECTED_GIL_REACTIVATION"] if concurrency_fail else []},
-        "security": {"status": security_status, "evidence_refs": [dep_ev["id"]], "failure_codes": ["UNSIGNED_MATERIAL"] if security_status == "fail" else []},
-        "observability": {"status": "pass" if observability_ok else "unknown", "evidence_refs": [test_ev["id"]], "failure_codes": [] if observability_ok else ["OBSERVABILITY_EVIDENCE_MISSING"]},
+        "functional": {"status": functional_status, "evidence_state": functional_state.value, "evidence_refs": [test_ev["id"]], "failure_codes": [] if functional_status == "pass" else ["UNIT_TEST_FAILURE"]},
+        "semantic": {"status": semantic_status, "evidence_state": semantic_state.value, "evidence_refs": [test_ev["id"]], "failure_codes": ["SEM_INV_VIOLATION"] if semantic_fail else []},
+        "dependency": {"status": dependency_status, "evidence_state": dependency_state.value, "evidence_refs": [dep_ev["id"]], "failure_codes": ["DEP_DRIFT"] if dependency_status == "fail" else []},
+        "runtime": {"status": runtime_status, "evidence_state": runtime_state.value, "evidence_refs": [manifest["id"]], "failure_codes": [] if runtime_ok else ["RUNTIME_EVIDENCE_MISSING"]},
+        "concurrency": {"status": concurrency_status, "evidence_state": concurrency_state.value, "evidence_refs": [manifest["id"]], "failure_codes": ["UNEXPECTED_GIL_REACTIVATION"] if concurrency_fail else []},
+        "security": {"status": security_status, "evidence_state": security_state.value, "evidence_refs": [dep_ev["id"]], "failure_codes": ["UNSIGNED_MATERIAL"] if security_status == "fail" else []},
+        "observability": {"status": observability_status, "evidence_state": observability_state.value, "evidence_refs": [test_ev["id"]], "failure_codes": [] if observability_ok else ["OBSERVABILITY_EVIDENCE_MISSING"]},
         "reproducibility": {"level": repro["level"], "evidence_refs": [manifest["id"]], "failure_codes": ["NOT_REPRODUCIBLE"] if repro["level"] == "NOT_REPRODUCIBLE" else []},
         "mandatory_invariant_failures": (["SEM_INV_VIOLATION"] if semantic_fail else []),
         "generated_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
@@ -102,8 +119,6 @@ def build_vector(manifest: dict, test_ev: dict, dep_ev: dict, repro: dict, gil: 
     vector["risk_tier"] = risk_tier
     vector["decision"] = decision_for_vector(vector, risk_tier=risk_tier)
 
-    # Phase B VSA: the PoC intentionally makes no SLSA level claim.
-    # AUTO_MERGE maps to PASSED; REVIEW/REJECT map to FAILED until policy verification completes.
     unsigned_patch = dict(manifest)
     unsigned_patch.pop("integrity_signature", None)
     artifact_digest = "sha256:" + sha256_bytes(canonical_json(unsigned_patch))
@@ -129,8 +144,6 @@ def build_vector(manifest: dict, test_ev: dict, dep_ev: dict, repro: dict, gil: 
     vsa["integrity_signature"] = sign_json(vsa, PRIVATE)
     put_json(vsa, vsa_id)
 
-    # SLSA/in-toto recommended envelope: DSSE with P-256/SHA-256.
-    # The key is generated lazily for the PoC and is intentionally not a production trust root.
     ensure_ecdsa_p256_keypair(DSSE_PRIVATE, DSSE_PUBLIC)
     dsse_id = f"vsa-dsse-{uuid4()}"
     dsse_envelope = sign_dsse(vsa, DSSE_PRIVATE)
@@ -148,7 +161,6 @@ def validate_manifest(manifest_id: str) -> dict[str, Any]:
     manifest = get_json(manifest_id)
     errors = validate_schema(manifest, "02_evidence_manifest.schema.json")
     envelope_id = manifest["intoto_envelope_ref"].rsplit("/", 1)[-1].split(":")[-1]
-    # PoC stores direct IDs in final segment in refs; accept direct local refs too.
     envelope = get_json(envelope_id)
     errors.extend(validate_provenance(envelope))
     if errors:
@@ -163,6 +175,7 @@ def validate_manifest(manifest_id: str) -> dict[str, Any]:
     patch_signature = unsigned_patch.pop("integrity_signature", None)
     if not patch_signature or not PUBLIC.exists() or not verify_json(unsigned_patch, patch_signature, PUBLIC):
         return {"status": "invalid", "errors": ["generated patch integrity signature verification failed"]}
+
     test_ev = generated.get("fixture_test_evidence")
     dep_ev = generated.get("fixture_dependency_report")
     if test_ev is None or dep_ev is None:
@@ -180,7 +193,11 @@ def validate_manifest(manifest_id: str) -> dict[str, Any]:
     repro = manifest["reproducibility"]
     gil = manifest["runtime_descriptor"].get("gil", {})
     vector = build_vector(
-        manifest, test_ev, dep_ev, repro, gil,
+        manifest,
+        test_ev,
+        dep_ev,
+        repro,
+        gil,
         semantic_fail=bool(generated.get("fixture_semantic_fail", False)),
         concurrency_reactivation=bool(manifest["runtime_descriptor"].get("unexpected_gil_reactivation", False)),
         runtime_evidence=generated.get("fixture_runtime_evidence"),
