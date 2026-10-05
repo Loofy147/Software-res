@@ -1,8 +1,4 @@
-"""Explicit epistemic states for software evidence.
-
-This module deliberately separates evidence state from the policy status of a
-Reliability Vector dimension.
-"""
+"""Explicit epistemic states for software evidence."""
 from __future__ import annotations
 
 from datetime import datetime
@@ -38,20 +34,47 @@ def assess_evidence(
 ) -> EvidenceState:
     """Classify evidence deterministically.
 
+    Evidence state describes epistemic trust/observation, not the policy result.
+    Therefore a warning is still observed evidence (PASS state), while a missing,
+    stale, invalid, or conflicting record blocks positive inference.
+
     Precedence:
-      INVALID > CONFLICT > STALE > FAIL > PASS > UNOBSERVED.
+      INVALID > EXPLICIT_CONFLICT > STALE > DERIVED_CONFLICT > FAIL > UNOBSERVED > PASS.
     """
     rows = list(records)
     if not rows:
         return EvidenceState.UNOBSERVED
+
     if any(r.get("valid") is False or r.get("state") == "INVALID" for r in rows):
         return EvidenceState.INVALID
+
     if any(r.get("conflict") is True or r.get("state") == "CONFLICT" for r in rows):
         return EvidenceState.CONFLICT
+
     if any(r.get("stale") is True or r.get("state") == "STALE" or _expired(r, now) for r in rows):
         return EvidenceState.STALE
-    if any(r.get("state") == "FAIL" or r.get("status") == "fail" for r in rows):
+
+    observed_states = set()
+    incomplete = False
+    for record in rows:
+        explicit = record.get("state")
+        if explicit in {"PASS", "FAIL"}:
+            observed_states.add(explicit)
+            continue
+        status = record.get("status")
+        if status == "fail":
+            observed_states.add("FAIL")
+        elif status in {"pass", "warn"}:
+            observed_states.add("PASS")
+        else:
+            incomplete = True
+
+    if {"PASS", "FAIL"} <= observed_states:
+        return EvidenceState.CONFLICT
+    if "FAIL" in observed_states:
         return EvidenceState.FAIL
-    if all(r.get("state") == "PASS" or r.get("status") == "pass" for r in rows):
+    if incomplete:
+        return EvidenceState.UNOBSERVED
+    if observed_states == {"PASS"}:
         return EvidenceState.PASS
     return EvidenceState.UNOBSERVED
