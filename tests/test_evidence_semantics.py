@@ -2,6 +2,7 @@ from datetime import datetime, timezone
 
 from resilience_poc.evidence import EvidenceState, assess_evidence
 from resilience_poc.models import decision_for_vector
+from resilience_poc.validator import build_vector
 
 
 def base_vector():
@@ -53,3 +54,37 @@ def test_stale_or_conflicting_evidence_requires_review():
 
 def test_explicit_pass_preserves_auto_merge():
     assert decision_for_vector(base_vector())["outcome"] == "AUTO_MERGE"
+
+
+def test_build_vector_populates_evidence_states():
+    manifest = {
+        "id": "m",
+        "generated_patch_ref": "p",
+        "source_revision": "repo@sha:test",
+        "risk_tier": "low",
+        "slsa_provenance_ref": "link:slsa",
+    }
+    test_ev = {
+        "id": "t",
+        "unit_tests": {"executed": True, "count": 1, "failed": 0},
+        "property_tests": {"violations": 0},
+    }
+    dep_ev = {
+        "id": "d",
+        "dependency_drift": {"count": 0},
+        "supply_chain_checks": {"executed": True, "signatures_valid": True, "cve_policy_pass": True},
+    }
+    v = build_vector(
+        manifest,
+        test_ev,
+        dep_ev,
+        {"level": "REPRODUCIBLE"},
+        {"runtime_gil_observed": False},
+        runtime_evidence={"executed": True, "status": "pass"},
+        observability_evidence={"executed": True},
+    )
+    assert v["functional"]["evidence_state"] == "PASS"
+    assert v["dependency"]["evidence_state"] == "PASS"
+    assert v["runtime"]["evidence_state"] == "PASS"
+    assert v["security"]["evidence_state"] == "PASS"
+    assert v["decision"]["outcome"] == "AUTO_MERGE"
