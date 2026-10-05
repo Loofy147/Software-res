@@ -12,6 +12,24 @@ from .validator import validate_manifest
 BASE = Path(__file__).resolve().parents[2]
 FIXTURES = resources.files("resilience_poc").joinpath("resources", "fixtures", "experiments")
 
+EXPECTED_FAILURE_CODES = {
+    "A": [],
+    "B": ["DEP_DRIFT"],
+    "C": ["SEM_INV_VIOLATION"],
+    "D1": [],
+    "D2": ["NOT_REPRODUCIBLE"],
+    "E": ["UNEXPECTED_GIL_REACTIVATION"],
+}
+
+EXPECTED_REPRODUCTION = {
+    "A": True,
+    "B": True,
+    "C": True,
+    "D1": True,
+    "D2": False,
+    "E": True,
+}
+
 
 def load_json(path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
@@ -19,9 +37,6 @@ def load_json(path) -> dict:
 
 def run_experiment(name: str) -> dict:
     patch = load_json(FIXTURES.joinpath(name, "01_generated_patch.json"))
-    # Synthetic fixtures must carry explicit verification evidence; the validator
-    # never manufactures passing evidence. Real manifests without these fields
-    # are correctly routed to REVIEW.
     patch["fixture_test_evidence"] = {
         "id": f"testev-{name}",
         "evidence_manifest_ref": f"fixture:{name}",
@@ -52,22 +67,38 @@ def run_experiment(name: str) -> dict:
         "unexpected_gil_reactivation": name == "E",
         "platform": "linux-x86_64",
     }
+
     manifest = collect(patch)
-    # Fixture behaviors are carried in the generated patch to keep the runner deterministic.
     manifest["reproducibility"] = patch.get("fixture_reproducibility", manifest["reproducibility"])
     manifest["runtime_descriptor"] = patch.get("fixture_runtime_descriptor", manifest["runtime_descriptor"])
-    # Persist mutated manifest directly; collector signed the earlier version, so this is intentionally demo-only.
-    # Re-sign for a valid fixture manifest.
+
     from .collector import PRIVATE
     from .security import sign_json
-    unsigned = dict(manifest); unsigned.pop("integrity_signature", None)
+    unsigned = dict(manifest)
+    unsigned.pop("integrity_signature", None)
     manifest["integrity_signature"] = sign_json(unsigned, PRIVATE)
     from .storage import put_json
     put_json(manifest, manifest["id"])
+
     result = validate_manifest(manifest["id"])
     expected = patch.get("expected_outcome")
     actual = result.get("reliability_vector", {}).get("decision", {}).get("outcome")
-    return {"experiment": name, "manifest_id": manifest["id"], "result": result, "expected_outcome": expected, "decision": actual, "repro_level": result.get("reliability_vector", {}).get("reproducibility", {}).get("level"), "manifest_complete": True, "repeat_decision": actual}
+
+    # True replay: re-read the same persisted evidence and run the validator again.
+    replay_result = validate_manifest(manifest["id"])
+    replay_decision = replay_result.get("reliability_vector", {}).get("decision", {}).get("outcome")
+
+    return {
+        "experiment": name,
+        "manifest_id": manifest["id"],
+        "result": result,
+        "expected_outcome": expected,
+        "expected_failure_codes": EXPECTED_FAILURE_CODES[name],
+        "decision": actual,
+        "replay_decision": replay_decision,
+        "repro_level": result.get("reliability_vector", {}).get("reproducibility", {}).get("level"),
+        "expected_reproduction_success": EXPECTED_REPRODUCTION[name],
+    }
 
 
 def main(argv: list[str]) -> int:

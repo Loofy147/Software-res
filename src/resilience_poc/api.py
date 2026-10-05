@@ -1,13 +1,12 @@
-from __future__ import annotations
-
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
 from .collector import collect
 from .storage import get_json
 from .validator import validate_manifest
+from . import __version__
 
-app = FastAPI(title="Software Resilience Stack Evidence PoC", version="0.2.0")
+app = FastAPI(title="Software Resilience Stack Evidence PoC", version=__version__)
 
 
 class PatchPayload(BaseModel):
